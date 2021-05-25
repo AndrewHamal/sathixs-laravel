@@ -10,4 +10,5 @@ docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
+bootstrap/cache/*
 yarn-error.log
