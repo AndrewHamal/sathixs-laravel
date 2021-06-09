@@ -1,0 +1,33 @@
+.div_title {
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.custom-border {
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.custom-fieldset {
+    border: 2px solid #8690b96b;
+    border-radius: 10px;
+}
+
+.custom-fieldset legend {
+    max-width: max-content;
+    padding: 0 0.4rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.custom-fieldset .entry-row {
+    padding: 1rem;
+}
+
+.select2-selection--multiple {
+    display: inline-block!important;
+    width: 100%;
+}
