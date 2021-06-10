@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Rider\Admin\RiderRequest;
 use App\Http\Requests\Rider\Admin\RiderUpdateRequest;
 use App\Models\Location;
-use App\Models\Rider;
-use App\Models\Rider_detail;
+use App\Models\Rider\Rider;
+use App\Models\Rider\Rider_detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

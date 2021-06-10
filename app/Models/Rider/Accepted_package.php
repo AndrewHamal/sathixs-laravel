@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Accepted_package extends Model
 {
     use HasFactory;
 
-    public function package()
-    {
-        return $this->hasMany('App\Models\Package','category_id', 'id');
-    }
+    protected $guarded =[];
 }

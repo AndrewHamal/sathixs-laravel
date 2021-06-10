@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Rider;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rider;
+use App\Models\Rider\Rider;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller

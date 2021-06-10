@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Rider\v1\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rider\v1\LocationRequest;
 use App\Models\Location;
-use App\Models\Rider_detail;
+use App\Models\Rider\Rider_detail;
 use Illuminate\Http\Request;
 
 class HomeLocationController extends Controller

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Rider\v1\Package;
 
 use App\Http\Controllers\Controller;
-use App\Models\Package;
-use App\Models\Package_status;
+use App\Models\Vendor\Package;
+use App\Models\Vendor\PackageStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class ReceiptController extends Controller
             'receiver_signature_name' => $request->receiver_signature_name
         ]);
 
-        Package_status::where('package_id', $request->package_id)->update(['process_step'=>3]);
+        PackageStatus::where('package_id', $request->package_id)->update(['process_step'=>3]);
 
         return response([
             'status_code'=> 200,

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Rider\v1\Document;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rider_detail;
+use App\Models\Rider\Rider_detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

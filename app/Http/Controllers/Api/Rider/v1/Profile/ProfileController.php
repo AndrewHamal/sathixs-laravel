@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Rider\v1\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rider\v1\RiderProfileRequest;
-use App\Models\Rider;
-use App\Models\Rider_detail;
+use App\Models\Rider\Rider;
+use App\Models\Rider\Rider_detail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

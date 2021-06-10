@@ -11,6 +11,28 @@ class Package extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $with = ['category','vendor'];
+
+
+    public function acceptPackage()
+    {
+        return $this->hasOne('App\Models\Accepted_package','package_id', 'id');
+    }
+
+    public function packageStatus()
+    {
+        return $this->hasOne('App\Models\Package_status','package_id', 'id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category','category_id','id');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo('App\Models\Vendor','vendor_id','id');
+    }
 
     public function uploadFiles($files): array
     {

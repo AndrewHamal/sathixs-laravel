@@ -20,4 +20,9 @@ class Vendor extends Model
         return Location::find($this->location_id);
     }
 
+    public function package()
+    {
+        return $this->hasMany('App\Models\Package','vendor_id','id');
+    }
+
 }

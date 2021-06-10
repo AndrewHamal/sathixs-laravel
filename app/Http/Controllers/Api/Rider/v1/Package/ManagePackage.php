@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Rider\v1\Package;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rider\v1\CancelReasonRequest;
-use App\Models\Accepted_package;
-use App\Models\Cancel_reason;
-use App\Models\Package_status;
+use App\Models\Rider\Accepted_package;
+use App\Models\CancelReason;
+use App\Models\Vendor\PackageStatus;
 use Illuminate\Http\Request;
 
 class ManagePackage extends Controller
@@ -18,7 +18,7 @@ class ManagePackage extends Controller
             'package_id' => $package_id
         ]);
 
-        Package_status::create([
+        PackageStatus::create([
             'process_step'=>1,
             'rider_id'=> auth()->user()->id,
             'package_id'=> $package_id,
@@ -33,22 +33,22 @@ class ManagePackage extends Controller
 
     public function ongoingPackage()
     {
-        return Package_status::where([['rider_id',auth()->user()->id],['process_step','!=',3]])->get();
+        return PackageStatus::where([['rider_id',auth()->user()->id],['process_step','!=',3]])->get();
     }
 
     public function historyPackage()
     {
-        return Package_status::where([['rider_id',auth()->user()->id],['process_step',3]])->get();
+        return PackageStatus::where([['rider_id',auth()->user()->id],['process_step',3]])->get();
     }
 
     public function show_package($id)
     {
-        return Package_status::where([['rider_id',auth()->user()->id],['package_id',$id]])->get();
+        return PackageStatus::where([['rider_id',auth()->user()->id],['package_id',$id]])->get();
     }
 
     public function cancel_reason()
     {
-        return Cancel_reason::all();
+        return CancelReason::all();
     }
 
     public function add_cancel_reason(CancelReasonRequest $request)
