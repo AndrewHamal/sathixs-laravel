@@ -4,8 +4,8 @@
     <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
 
         <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
-            <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Rider <span class="tx-info tx-normal"> admin</span></div>
-            <div class="tx-center mg-b-60">Admin Login</div>
+            <div class="signin-logo tx-center tx-24 tx-bold tx-inverse mg-b-60">Admin <span class="tx-info tx-normal"> Login</span></div>
+
 
             <form action="{{ route('login') }}" method="post">
                 @csrf

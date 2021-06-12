@@ -6,13 +6,10 @@
     <div class="sl-mainpanel">
 
         <div class="sl-pagebody">
-            <div class="sl-page-title">
-                <h5>Rider Table</h5>
-            </div><!-- sl-page-title -->
 
             <div class="card pd-20 pd-sm-40">
                 <h6 class="card-body-title">Rider List
-                    <a href="{{ route('rider.create') }}" class="btn btn-sm btn-success" style="float:right;">Add New</a>
+                    <a href="{{ route('rider.create') }}" class="btn btn-sm btn-success" style="float:right;"><i class="fa fa-plus"></i> Add New</a>
                 </h6>
                 <div class="table-wrapper">
                     <table id="datatable1" class="table scrollable display responsive nowrap">
@@ -52,18 +49,18 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ URL::to('/rider/'.$row->id.'/edit') }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i>
+                                    <a href="{{ URL::to('/rider/'.$row->id.'/edit') }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i> Edit
                                     </a>
                                     <form method="post" action="{{ url('rider/'.$row->id) }}" id="deleteForm" style="display: inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger" type="submit" title="Delete" id="btnDelete"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-sm btn-danger" type="submit" title="Delete" id="btnDelete"><i class="fa fa-trash"></i> Delete</button>
                                     </form>
-                                    <a href="{{ URL::to('rider/'.$row->id) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ URL::to('rider/'.$row->id) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i> View</a>
                                     @if($row->status == 1)
-                                        <a href="{{ URL::to('inactive/rider/'.$row->id) }}" class="btn btn-sm btn-danger" title="Inactive"><i class="fa fa-thumbs-down"></i></a>
+                                        <a href="{{ URL::to('inactive/rider/'.$row->id) }}" class="btn btn-sm btn-danger" title="Inactive"><i class="fa fa-thumbs-down"></i> Inactive</a>
                                     @else
-                                        <a href="{{ URL::to('active/rider/'.$row->id) }}" class="btn btn-sm btn-info" title="Active"><i class="fa fa-thumbs-up"></i></a>
+                                        <a href="{{ URL::to('active/rider/'.$row->id) }}" class="btn btn-sm btn-info" title="Active"><i class="fa fa-thumbs-up"></i> Active</a>
                                     @endif
 
                                 </td>

@@ -64,6 +64,19 @@
                     <span class="menu-item-label">Dashboard</span>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
+
+            <a href="#" class="sl-menu-link">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon ion-ios-people tx-20"></i>
+                    <span class="menu-item-label">Admin User</span>
+                    <i class="menu-item-arrow fa fa-angle-down"></i>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{{ route('adminuser.index') }}" class="nav-link">All User</a></li>
+                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Add User</a></li>
+            </ul>
+
             <a href="#" class="sl-menu-link">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon ion-ios-people tx-20"></i>
@@ -73,6 +86,7 @@
             </a><!-- sl-menu-link -->
             <ul class="sl-menu-sub nav flex-column">
                 <li class="nav-item"><a href="{{ route('rider.index') }}" class="nav-link">All Rider</a></li>
+                <li class="nav-item"><a href="{{ route('rider.create') }}" class="nav-link">Add Rider</a></li>
             </ul>
 
         </div><!-- sl-sideleft-menu -->
@@ -334,7 +348,6 @@
 <script>
     $(document).on("click", "#btnDelete", function(e){
         e.preventDefault();
-        var link = $('#deleteForm').attr("action");
         swal({
             title: "Are you Want to delete?",
             text: "Once Delete, This will be Permanently Delete!",
@@ -344,7 +357,7 @@
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    $('#deleteForm').submit();
+                    $(this).closest('form').submit();
                 } else {
                     swal("Safe Data!");
                 }

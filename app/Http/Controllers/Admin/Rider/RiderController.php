@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Rider;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Rider\Admin\RiderRequest;
-use App\Http\Requests\Rider\Admin\RiderUpdateRequest;
+use App\Http\Requests\Admin\RiderRequest;
+use App\Http\Requests\Admin\RiderUpdateRequest;
 use App\Models\Location;
 use App\Models\Rider\Rider;
 use App\Models\Rider\Rider_detail;
