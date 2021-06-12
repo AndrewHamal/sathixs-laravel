@@ -96,7 +96,7 @@
                                                 <input type="file" id="file" class="custom-file-input" name="profile_photo"
                                                        onchange="readURL1(this);" >
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="one" class="mb-5">
+                                                <img src="#" id="one" class="mb-5" style="display: none;">
                                             </label>
                                         </div>
                                     </div><!-- col-4 -->
@@ -118,7 +118,7 @@
                                                 <input type="file" id="file" class="custom-file-input" name="driving_license[]"
                                                        onchange="readURL2(this);" multiple>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="two" class="mb-5">
+                                                <img src="#" id="two" class="mb-5" style="display: none;">
                                                 <p id="multiple_select2"></p>
                                             </label>
                                         </div>
@@ -139,7 +139,7 @@
                                                 <input type="file" id="file" class="custom-file-input" name="photo_id_proof[]"
                                                        onchange="readURL3(this);" multiple>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="three" class="mb-5">
+                                                <img src="#" id="three" class="mb-5" style="display: none;">
                                                 <p id="multiple_select3"></p>
                                             </label>
                                         </div>
@@ -161,7 +161,7 @@
                                                 <input type="file" id="file" class="custom-file-input" name="vehicle_insurance[]"
                                                        onchange="readURL4(this);" multiple>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="four" class="mb-5">
+                                                <img src="#" id="four" class="mb-5" style="display: none;">
                                                 <p id="multiple_select4"></p>
                                             </label>
                                         </div>
@@ -182,7 +182,7 @@
                                                 <input type="file" id="file" class="custom-file-input" name="registration_certificate[]"
                                                        onchange="readURL5(this);" multiple>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="five" class="mb-5">
+                                                <img src="#" id="five" class="mb-5" style="display: none;">
                                                 <p id="multiple_select5"></p>
                                             </label>
                                         </div>
@@ -353,6 +353,7 @@
             {
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    $('#one').show();
                     $('#one')
                         .attr('src', e.target.result)
                         .width(80)

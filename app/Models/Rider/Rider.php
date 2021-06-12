@@ -16,12 +16,12 @@ class Rider extends Model
 
     public function riderDetail()
     {
-        return $this->hasOne('App\Models\Rider_detail','rider_id', 'id');
+        return $this->hasOne('App\Models\Rider\Rider_detail','rider_id', 'id');
     }
 
     public function acceptPackage()
     {
-        return $this->hasOne('App\Models\Accepted_package','rider_id', 'id');
+        return $this->hasOne('App\Models\Rider\Accepted_package','rider_id', 'id');
     }
 
 

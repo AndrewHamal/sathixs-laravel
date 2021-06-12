@@ -18,7 +18,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
-                                            <input class="form-control  @error('first_name') is-invalid @enderror" type="text" name="first_name" placeholder="Enter firstname" required>
+                                            <input class="form-control  @error('first_name') is-invalid @enderror" type="text" name="first_name" value="{{ old('first_name') }}" placeholder="Enter firstname" required>
                                             @error('first_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -29,7 +29,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('last_name') is-invalid @enderror" type="text" name="last_name" placeholder="Enter lastname" required>
+                                            <input class="form-control @error('last_name') is-invalid @enderror" type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Enter lastname" required>
                                             @error('last_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -40,7 +40,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Email address: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('email') is-invalid @enderror" type="text" name="email" placeholder="Enter email address" required>
+                                            <input class="form-control @error('email') is-invalid @enderror" type="text" name="email" value="{{ old('email') }}" placeholder="Enter email address" required>
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -51,7 +51,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Date of Birth:</label>
-                                            <input class="form-control @error('date_of_birth') is-invalid @enderror" type="date" name="date_of_birth">
+                                            <input class="form-control @error('date_of_birth') is-invalid @enderror" type="date" name="date_of_birth" value="{{ old('date_of_birth') }}">
                                             @error('date_of_birth')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -62,7 +62,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group mg-b-10-force">
                                             <label class="form-control-label">Phone: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" placeholder="Enter Phone Number" required>
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone Number" required>
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -75,9 +75,9 @@
                                             <label class="form-control-label">Gender: <span class="tx-danger">*</span></label>
                                             <select class="form-control select2 @error('gender') is-invalid @enderror" data-placeholder="Choose Gender" name="gender" required>
                                                 <option label="Choose Gender"></option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
+                                                <option value="male" @php if( old('gender') == 'male') { echo 'selected';} @endphp>Male</option>
+                                                <option value="female"  @php if( old('gender') == 'female') { echo 'selected';} @endphp>Female</option>
+                                                <option value="other"  @php if( old('gender') == 'other') { echo 'selected';} @endphp>Other</option>
                                             </select>
                                             @error('gender')
                                                 <span class="invalid-feedback" role="alert">
@@ -115,10 +115,10 @@
                                                 <input type="file" id="file" class="custom-file-input @error('profile_photo') is-invalid @enderror" name="profile_photo"
                                                        onchange="readURL1(this);" required="">
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="one" class="mb-5">
+                                                <img src="#" id="one" class="mb-5" style="display: none;">
                                             </label>
                                             @error('profile_photo')
-                                                <span class="invalid-feedback" role="alert">
+                                                <span class="invalid-feedback" role="alert" style="display: block;">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
@@ -132,50 +132,70 @@
                                 <div class="row entry-row mg-b-25">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label">Driving License: </label>
+                                            <label class="form-control-label">Driving License: <span class="tx-danger">*</span> </label>
                                             <label class="custom-file">
                                                 <input type="file" id="file" class="custom-file-input" name="driving_license[]"
-                                                       onchange="readURL2(this);" multiple>
+                                                       onchange="readURL2(this);" multiple required>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="two" class="mb-5">
+                                                <img src="#" id="two" class="mb-5" style="display: none;">
                                                 <p id="multiple_select2"></p>
                                             </label>
+                                            @error('driving_license')
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div><!-- col-4 -->
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label">Photo ID Proof: <span class="tx-danger"></label>
+                                            <label class="form-control-label">Photo ID Proof: <span class="tx-danger">*</span></label>
                                             <label class="custom-file">
                                                 <input type="file" id="file" class="custom-file-input" name="photo_id_proof[]"
-                                                       onchange="readURL3(this);" multiple>
+                                                       onchange="readURL3(this);" multiple required>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="three" class="mb-5">
+                                                <img src="#" id="three" class="mb-5" style="display: none;">
                                                 <p id="multiple_select3"></p>
                                             </label>
+                                            @error('photo_id_proof')
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div><!-- col-4 -->
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label">Vehicle Insurance: </label>
+                                            <label class="form-control-label">Vehicle Insurance: <span class="tx-danger">*</span></label>
                                             <label class="custom-file">
                                                 <input type="file" id="file" class="custom-file-input" name="vehicle_insurance[]"
-                                                       onchange="readURL4(this);" multiple>
+                                                       onchange="readURL4(this);" multiple required>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="four" class="mb-5">
+                                                <img src="#" id="four" class="mb-5" style="display: none;">
                                                 <p id="multiple_select4"></p>
                                             </label>
+                                            @error('vehicle_insurance')
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div><!-- col-4 -->
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label">Registration Certificate: </label>
+                                            <label class="form-control-label">Registration Certificate: <span class="tx-danger">*</span></label>
                                             <label class="custom-file">
                                                 <input type="file" id="file" class="custom-file-input" name="registration_certificate[]"
-                                                       onchange="readURL5(this);" multiple>
+                                                       onchange="readURL5(this);" multiple required>
                                                 <span class="custom-file-control"></span>
-                                                <img src="#" id="five" class="mb-5">
+                                                <img src="#" id="five" class="mb-5" style="display: none;">
                                                 <p id="multiple_select5"></p>
                                             </label>
+                                            @error('registration_certificate')
+                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div><!-- col-4 -->
                                 </div><!-- row -->
@@ -186,7 +206,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">City: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('home_city') is-invalid @enderror" type="text" name="home_city" placeholder="Enter City" required>
+                                            <input class="form-control @error('home_city') is-invalid @enderror" type="text" name="home_city" value="{{ old('home_city') }}" placeholder="Enter City" required>
                                             @error('home_city')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -197,7 +217,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">State: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('home_state') is-invalid @enderror" type="text" name="home_state" placeholder="Enter State" required>
+                                            <input class="form-control @error('home_state') is-invalid @enderror" type="text" name="home_state" value="{{ old('home_state') }}" placeholder="Enter State" required>
                                             @error('home_state')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -208,7 +228,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Country: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('home_country') is-invalid @enderror" type="text" name="home_country" placeholder="Enter Country" required>
+                                            <input class="form-control @error('home_country') is-invalid @enderror" type="text" name="home_country" value="{{ old('home_country') }}" placeholder="Enter Country" required>
                                             @error('home_country')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -219,7 +239,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Longitude: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('home_long') is-invalid @enderror" type="number" step="any" name="home_long" placeholder="Enter Longitude" required>
+                                            <input class="form-control @error('home_long') is-invalid @enderror" type="number" step="any" name="home_long" value="{{ old('home_long') }}" placeholder="Enter Longitude" required>
                                             @error('home_long')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -230,7 +250,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Latitude: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('home_lat') is-invalid @enderror" type="number" step="any" name="home_lat" placeholder="Enter Latitude" required>
+                                            <input class="form-control @error('home_lat') is-invalid @enderror" type="number" step="any" name="home_lat" value="{{ old('home_lat') }}" placeholder="Enter Latitude" required>
                                             @error('home_lat')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -241,7 +261,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Whole Address: </label>
-                                            <input class="form-control" type="text" name="home_whole_address" placeholder="Enter Whole Address">
+                                            <input class="form-control" type="text" name="home_whole_address" value="{{ old('home_whole_address') }}" placeholder="Enter Whole Address">
                                         </div>
                                     </div><!-- col-4 -->
                                 </div><!-- row -->
@@ -252,7 +272,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">City: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('work_city') is-invalid @enderror" type="text" name="work_city" placeholder="Enter City" required>
+                                            <input class="form-control @error('work_city') is-invalid @enderror" type="text" name="work_city" value="{{ old('work_city') }}" placeholder="Enter City" required>
                                             @error('work_city')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -263,7 +283,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">State: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('work_state') is-invalid @enderror" type="text" name="work_state" placeholder="Enter State" required>
+                                            <input class="form-control @error('work_state') is-invalid @enderror" type="text" name="work_state" value="{{ old('work_state') }}" placeholder="Enter State" required>
                                             @error('work_state')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -274,7 +294,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Country: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('work_country') is-invalid @enderror" type="text" name="work_country" placeholder="Enter Country" required>
+                                            <input class="form-control @error('work_country') is-invalid @enderror" type="text" name="work_country" value="{{ old('work_country') }}" placeholder="Enter Country" required>
                                             @error('work_country')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -285,7 +305,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Longitude: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('work_long') is-invalid @enderror" type="number" step="any" name="work_long" placeholder="Enter Longitude" required>
+                                            <input class="form-control @error('work_long') is-invalid @enderror" type="number" step="any" name="work_long" value="{{ old('work_long') }}" placeholder="Enter Longitude" required>
                                             @error('work_long')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $messsage }}</strong>
@@ -296,7 +316,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Latitude: <span class="tx-danger">*</span></label>
-                                            <input class="form-control @error('work_lat') is-invalid @enderror" type="number" step="any" name="work_lat" placeholder="Enter Latitude" required>
+                                            <input class="form-control @error('work_lat') is-invalid @enderror" type="number" step="any" name="work_lat" value="{{ old('work_lat') }}" placeholder="Enter Latitude" required>
                                             @error('work_lat')
                                             <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $messsage }}</strong>
@@ -307,7 +327,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label">Whole Address: </label>
-                                            <input class="form-control" type="text" name="work_whole_address" placeholder="Enter Whole Address">
+                                            <input class="form-control" type="text" name="work_whole_address" value="{{ old('work_whole_address') }}" placeholder="Enter Whole Address">
                                         </div>
                                     </div><!-- col-4 -->
                                 </div><!-- row -->
@@ -335,6 +355,7 @@
             {
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    $('#one').show();
                     $('#one')
                         .attr('src', e.target.result)
                         .width(80)
