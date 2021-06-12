@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Rider\HomeController;
 use App\Http\Controllers\Admin\Rider\RiderController;
 use App\Http\Controllers\Admin\Rider\GeneralController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Vendor\VendorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,5 @@ Route::get('active/rider/{id}', [GeneralController::class, 'activeRider']);
 Route::get('inactive/rider/{id}', [GeneralController::class, 'inactiveRider']);
 
 Route::resource('adminuser', AdminController::class);
+
+Route::resource('admin_vendor', VendorController::class);

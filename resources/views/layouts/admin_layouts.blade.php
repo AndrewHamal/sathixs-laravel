@@ -9,7 +9,7 @@
     <meta name="description" content="ecommerce product">
     <meta name="author" content=" ">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Rider</title>
+    <title>Admin</title>
 
     <!-- vendor css -->
     <link href="{{ asset('backend/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -54,7 +54,7 @@
 
 @else
     <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> starlight</a></div>
+    <div class="sl-logo"><a href="">Sathixa</a></div>
     <div class="sl-sideleft">
 
         <div class="sl-sideleft-menu">
@@ -68,7 +68,7 @@
             <a href="#" class="sl-menu-link">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon ion-ios-people tx-20"></i>
-                    <span class="menu-item-label">Admin User</span>
+                    <span class="menu-item-label">Admin Users</span>
                     <i class="menu-item-arrow fa fa-angle-down"></i>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
@@ -89,6 +89,18 @@
                 <li class="nav-item"><a href="{{ route('rider.create') }}" class="nav-link">Add Rider</a></li>
             </ul>
 
+            <a href="#" class="sl-menu-link">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-person-stalker tx-20"></i>
+                    <span class="menu-item-label">Vendors</span>
+                    <i class="menu-item-arrow fa fa-angle-down"></i>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+            <ul class="sl-menu-sub nav flex-column">
+                <li class="nav-item"><a href="{{ route('admin_vendor.index') }}" class="nav-link">All Vendor</a></li>
+                <li class="nav-item"><a href="{{ route('admin_vendor.create') }}" class="nav-link">Add Vendor</a></li>
+            </ul>
+
         </div><!-- sl-sideleft-menu -->
 
         <br>
@@ -105,8 +117,8 @@
             <nav class="nav">
                 <div class="dropdown">
                     <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                        <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
-                        <img src="{{ asset('/backend/img/img3.jpg') }}" class="wd-32 rounded-circle" alt="">
+                        <span class="logged-name"><span class="hidden-md-down">{{ auth()->user()->name }}</span></span>
+                        <img src="{{ asset('/backend/img/avatar.jpg') }}" class="wd-32 rounded-circle" alt="">
                     </a>
                     <div class="dropdown-menu dropdown-menu-header wd-200">
                         <ul class="list-unstyled user-profile-nav">
