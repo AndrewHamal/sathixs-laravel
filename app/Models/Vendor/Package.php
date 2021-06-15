@@ -11,7 +11,7 @@ class Package extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['category','vendor'];
+    protected $with = ['category','vendor','package_file'];
 
 
     public function acceptPackage()
@@ -31,7 +31,12 @@ class Package extends Model
 
     public function vendor()
     {
-        return $this->belongsTo('App\Models\Vendor','vendor_id','id');
+        return $this->belongsTo('App\Models\Vendor\Vendor','vendor_id','id');
+    }
+
+    public function package_file()
+    {
+        return $this->hasmany('App\Models\Vendor\PackageFile','package_id','id');
     }
 
     public function uploadFiles($files): array

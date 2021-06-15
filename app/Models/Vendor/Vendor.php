@@ -22,7 +22,7 @@ class Vendor extends Model
 
     public function package()
     {
-        return $this->hasMany('App\Models\Package','vendor_id','id');
+        return $this->hasMany('App\Models\Vendor\Package','vendor_id','id');
     }
 
 }

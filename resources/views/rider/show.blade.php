@@ -6,7 +6,7 @@
 
         <div class="sl-pagebody">
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Edit Rider
+                <h6 class="card-body-title">View Rider
                 <a href=" {{route('rider.index')}}" class="btn btn-success btn-sm pull-right"> List Riders </a>
                 </h6>
                 <div class="form-layout mt-3">
@@ -18,7 +18,7 @@
                                         <img src="{{ asset('/storage/'.$rider->profile_photo) }}" height="100px;" width="100px;">
                                     </div>
 
-                                    <div class="row col-lg-8">
+                                    <div class="row col-lg-10">
                                         <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label class="form-control-label">First Name: </label><br>
@@ -236,104 +236,5 @@
 @endsection
 
 @section('js')
-    <script type="text/javascript">
-        function readURL1(input) {
-            if(input.files && input.files[0])
-            {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#one')
-                        .attr('src', e.target.result)
-                        .width(80)
-                        .height(80);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function readURL2(input) {
-            const count = input.files.length;
-            if(input.files.length > 1)
-            {
-                $('#two').hide();
-                $('#multiple_select2').show();
-                document.getElementById('multiple_select2').innerText = count+" file Selected.";
-            }else{
-                $('#two').show();
-                $('#multiple_select2').hide();
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#two')
-                        .attr('src', e.target.result)
-                        .width(80)
-                        .height(80);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function readURL3(input) {
-            const count = input.files.length;
-            if(input.files.length > 1)
-            {
-                $('#three').hide();
-                $('#multiple_select3').show();
-                document.getElementById('multiple_select3').innerText = count+" file Selected.";
-            }else{
-                $('#three').show();
-                $('#multiple_select3').hide();
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#three')
-                        .attr('src', e.target.result)
-                        .width(80)
-                        .height(80);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function readURL4(input) {
-            const count = input.files.length;
-            if(input.files.length > 1)
-            {
-                $('#four').hide();
-                $('#multiple_select4').show();
-                document.getElementById('multiple_select4').innerText = count+" file Selected.";
-            }else{
-                $('#four').show();
-                $('#multiple_select4').hide();
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#four')
-                        .attr('src', e.target.result)
-                        .width(80)
-                        .height(80);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function readURL5(input) {
-            const count = input.files.length;
-            if(input.files.length > 1)
-            {
-                $('#five').hide();
-                $('#multiple_select5').show();
-                document.getElementById('multiple_select5').innerText = count+" file Selected.";
-            }else{
-                $('#five').show();
-                $('#multiple_select5').hide();
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#five')
-                        .attr('src', e.target.result)
-                        .width(80)
-                        .height(80);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 
 @endsection
