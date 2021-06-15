@@ -87,7 +87,8 @@ class VendorController extends Controller
      */
     public function show($id)
     {
-        //
+        $vendor = Vendor::with('package')->find($id);
+        return view('vendor.show', compact('vendor'));
     }
 
     /**
