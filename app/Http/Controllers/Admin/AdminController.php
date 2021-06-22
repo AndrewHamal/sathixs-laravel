@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminUserRequest;
 use App\Http\Requests\Admin\UpdateAdminUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\DataTables;
+
 
 class AdminController extends Controller
 {
@@ -20,10 +23,10 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserDataTable $dataTable)
     {
-        $users = User::get();
-        return view('adminuser.index', compact('users'));
+        return $dataTable->render('adminuser.index');
+
     }
 
     /**
@@ -114,10 +117,6 @@ class AdminController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        $notification=array(
-            'message'=>'Admin User Deleted Successfully',
-            'alert-type'=>'success'
-        );
-        return Redirect()->back()->with($notification);
+        return response()->json(['message'=>'Product deleted successfully', 'type'=> 'success']);
     }
 }

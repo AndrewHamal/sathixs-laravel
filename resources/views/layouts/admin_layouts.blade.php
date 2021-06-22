@@ -28,10 +28,12 @@
 
     <!-- Datatable -->
     <link href="{{ asset('backend/lib/highlightjs/github.css') }}" rel="stylesheet">
-    <link href="{{ asset('backend/lib/datatables/jquery.dataTables.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('backend/lib/datatables/jquery.dataTables.css') }}" rel="stylesheet">--}}
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <link href="{{ asset('backend/lib/select2/css/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap4.min.css">
     <style>
         #datatable1 {
             width:100%!important;
@@ -223,11 +225,14 @@
 <script src="{{ asset('backend/lib/bootstrap/bootstrap.js') }}"></script>
 <script src="{{ asset('backend/lib/jquery-ui/jquery-ui.js') }}"></script>
 <script src="{{ asset('backend/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
-
 <!-- Datatable -->
 <script src="{{ asset('backend/lib/highlightjs/highlight.pack.js') }}"></script>
-<script src="{{ asset('backend/lib/datatables/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>
+{{--<script src="{{ asset('backend/lib/datatables/jquery.dataTables.js') }}"></script>--}}
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ asset('backend/lib/buttons.server-side.js') }}"></script>
+{{--<script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>--}}
 <script src="{{ asset('backend/lib/select2/js/select2.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
@@ -235,41 +240,7 @@
 
 
 
-<script>
-    $(function(){
-        'use strict';
 
-        if($('#datatable1').hasClass('scrollable')){
-            $('#datatable1').DataTable({
-                responsive: false,
-                language: {
-                    searchPlaceholder: 'Search...',
-                    sSearch: '',
-                },
-                scrollX: true,
-            });
-        }else{
-            $('#datatable1').DataTable({
-                responsive: false,
-                language: {
-                    searchPlaceholder: 'Search...',
-                    sSearch: '',
-                },
-                scrollX: false,
-            });
-        }
-
-        $('#datatable2').DataTable({
-            bLengthChange: false,
-            searching: false,
-            responsive: true,
-        });
-
-        // Select2
-        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-
-    });
-</script>
 
 <script src="{{ asset('backend/lib/jquery.sparkline.bower/jquery.sparkline.min.js') }}"></script>
 <script src="{{ asset('backend/lib/d3/d3.js') }}"></script>
@@ -323,7 +294,36 @@
 
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
+<script>
+    if(sessionStorage.getItem('items'))
+    {
+        var msgArray = JSON.parse(sessionStorage.getItem('items'));
+        var type = msgArray[1];
+        switch(type)
+        {
+            case 'info':
+                toastr.info(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
 
+            case 'success':
+                toastr.success(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
+
+            case 'warning':
+                toastr.warning(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
+
+            case 'error':
+                toastr.error(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
+
+        }
+    }
+</script>
 
 <script>
     @if(Session::has('message'))
@@ -362,26 +362,6 @@
             .then((willDelete) => {
                 if (willDelete) {
                     window.location.href = link;
-                } else {
-                    swal("Safe Data!");
-                }
-            });
-    });
-</script>
-
-<script>
-    $(document).on("click", "#btnDelete", function(e){
-        e.preventDefault();
-        swal({
-            title: "Are you Want to delete?",
-            text: "Once Delete, This will be Permanently Delete!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $(this).closest('form').submit();
                 } else {
                     swal("Safe Data!");
                 }
