@@ -71,12 +71,5 @@
 
         });
 
-        $(document).on("click", "#btnEdit", function(e){
-            const id = $(this).attr('data-id');
-            const url = "{{ url('/adminuser/') }}/"+id+"/edit";
-            console.log(url);
-            window.location.href= url;
-        });
-
     </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\User;
+use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -31,7 +32,8 @@ class UserDataTable extends DataTable
                 return $user->created_at->diffForHumans();
             })
             ->addColumn('action', function (User $user) {
-                $button = '<button data-id="'.$user->id.'" id="btnEdit" class="btn btn-sm btn-info mr-1 mb-1" title="Edit"><i class="fa fa-edit"></i> Edit</button>';
+                $editUrl = URL::to('/adminuser/'.$user->id.'/edit');
+                $button = '<a href="'.$editUrl.'" id="btnEdit" class="btn btn-sm btn-info mr-1 mb-1" title="Edit"><i class="fa fa-edit"></i> Edit</a>';
                 $button.= '<button class="btn btn-sm btn-danger mr-1 mb-1" id="btnDelete" type="submit" title="Delete" data-id="'.$user->id.'"><i class="fa fa-trash"></i> Delete</button>';
 
                 return $button;
@@ -67,9 +69,9 @@ class UserDataTable extends DataTable
                         Button::make('pageLength'),
                     )
 
-            ->scrollX('true')
-            ->responsive('true')
-            ->lengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]);
+                    ->scrollX('true')
+                    ->responsive('true')
+                    ->lengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]);
     }
 
     /**
