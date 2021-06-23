@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Package;
 
+use App\DataTables\PackageDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Vendor\Package;
 use App\Models\Vendor\PackageFile;
 use App\Models\Vendor\Vendor;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Http\Requests\Admin\Package\PackageRequest;
@@ -27,10 +25,9 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PackageDataTable $dataTable)
     {
-        $packages = Package::get();
-        return view('package.index',compact('packages'));
+        return $dataTable->render('package.index');
     }
 
     /**
@@ -150,10 +147,7 @@ class PackageController extends Controller
     public function destroy($id)
     {
         Package::destroy($id);
-        $notification=array(
-            'message'=>'Package Deleted Successfully',
-            'alert-type'=>'success'
-        );
-        return Redirect()->back()->with($notification);
+        return response()->json(['message'=>'Package Deleted Successfully', 'type'=> 'success']);
+
     }
 }
