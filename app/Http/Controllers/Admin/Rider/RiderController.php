@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Rider;
 
+use App\DataTables\RiderDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RiderRequest;
 use App\Http\Requests\Admin\RiderUpdateRequest;
@@ -23,10 +24,9 @@ class RiderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RiderDataTable $dataTable)
     {
-        $riders = Rider::with('riderDetail')->paginate();
-        return view('rider.index', compact('riders'));
+        return $dataTable->render('rider.index');
     }
 
     /**
@@ -280,10 +280,7 @@ class RiderController extends Controller
     public function destroy($id)
     {
         Rider::destroy($id);
-        $notification=array(
-            'message'=>'Rider Deleted Successfully',
-            'alert-type'=>'success'
-        );
-        return Redirect()->back()->with($notification);
+        return response()->json(['message'=>'Rider Deleted Successfully', 'type'=> 'success']);
+
     }
 }
