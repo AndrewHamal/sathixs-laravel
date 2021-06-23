@@ -171,8 +171,8 @@
                         </div>
 
                         <div class="form-layout-footer text-center">
-                            <button class="btn btn-info mg-r-5">Submit</button>
-                            <button class="btn btn-secondary">Cancel</button>
+                            <button class="btn btn-info mg-r-5" type="submit">Submit</button>
+                            <a href="{{ route('admin_vendor.index') }}" class="btn btn-secondary">Cancel</a>
                         </div><!-- form-layout-footer -->
                     </form>
                 </div><!-- form-layout -->

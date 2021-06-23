@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Vendor;
 
+use App\DataTables\VendorDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Vendor\UpdateVendorRequest;
 use App\Http\Requests\Admin\Vendor\VendorRequest;
@@ -24,10 +25,9 @@ class VendorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(VendorDataTable $dataTable)
     {
-        $vendors = Vendor::get();
-        return view('vendor.index', compact('vendors'));
+        return $dataTable->render('vendor.index');
     }
 
     /**
@@ -150,10 +150,7 @@ class VendorController extends Controller
     public function destroy($id)
     {
         Vendor::destroy($id);
-        $notification=array(
-            'message'=>'Vendor Deleted Successfully',
-            'alert-type'=>'success'
-        );
-        return Redirect()->back()->with($notification);
+        return response()->json(['message'=>'Vendor Deleted Successfully', 'type'=> 'success']);
+
     }
 }
