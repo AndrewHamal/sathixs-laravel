@@ -20,8 +20,17 @@ class PackageController extends Controller
      */
     public function index()
     {
-        return Package::where('vendor_id', Auth::user()->id)
-            ->paginate(10);
+
+        $search = \request('search');
+        $package = Package::query();
+        $package->where('vendor_id', Auth::user()->id);
+
+        if($search != '') {
+            return $package
+                ->where('tracking_id', $search)
+                ->paginate();
+        }
+        return $package->paginate(10);
     }
 
     /**

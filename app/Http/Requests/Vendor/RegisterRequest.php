@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:vendors',
             'password' => [
                 'required',
                 'string',
@@ -36,7 +36,6 @@ class RegisterRequest extends FormRequest
                 'regex:/[0-9]/',      // must contain at least one digit
                 'regex:/[@$!%*#?&]/', // must contain a special character,
             ],
-            'confirm_password' => 'required|same:password',
             'phone' => 'nullable',
             'location_id' => 'nullable',
             'profile_picture' => 'nullable'

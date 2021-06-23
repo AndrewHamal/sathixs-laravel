@@ -29,6 +29,7 @@ class PackageRequest extends FormRequest
             'receiver_name' => 'required',
             'receiver_address' => 'required',
             'receiver_phone' => 'required',
+            'product_price' => 'required',
             'weight' => 'required|numeric',
         ];
     }

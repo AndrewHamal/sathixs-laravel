@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/sathixa-laravel.iml" filepath="$PROJECT_DIR$/.idea/sathixa-laravel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sathixa-react/.idea/sathixa-react.iml" filepath="$PROJECT_DIR$/../sathixa-react/.idea/sathixa-react.iml" />
     </modules>
   </component>
 </project>

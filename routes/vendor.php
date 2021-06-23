@@ -8,6 +8,9 @@ use App\Http\Controllers\Vendor\PackageController;
 use App\Http\Controllers\Vendor\PackageCancelController;
 use App\Http\Controllers\Vendor\TicketController;
 use App\Http\Controllers\Vendor\PackageStatusController;
+use App\Http\Controllers\Vendor\VendorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LocationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,17 +21,31 @@ use App\Http\Controllers\Vendor\PackageStatusController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('vendor/login', [LoginController::class, 'login']);
+Route::post('vendor/register', [RegisterController::class, 'register']);
 
-Route::post('/login', [LoginController::class, 'login']);
+//google Oauth
+Route::get('vendor/redirect', [LoginController::class, 'redirect']);
+Route::get('vendor/callback', [LoginController::class, 'callback']);
 
-Route::post('/register', [RegisterController::class, 'register']);
+use App\Events\Vendor\ReceiveCoordinate;
+Route::get('test', function(){
+
+        broadcast(new ReceiveCoordinate(['id'=>'dsds']));
+
+});
+
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
     Route::get('/', function (Request $request) {
-        return $request->user();
+        return Auth::user();
     });
 
-    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::resource('location', LocationController::class);
+
+    Route::post('update-vendor', VendorController::class);
+
+    Route::post('logout', [LoginController::class, 'logout']);
 
     Route::resource('package', PackageController::class);
 
@@ -37,4 +54,6 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
     Route::resource('package-status', PackageStatusController::class);
 
     Route::post('package-cancel', PackageCancelController::class);
+
+    Route::get('categories', CategoryController::class);
 });

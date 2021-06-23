@@ -5,10 +5,21 @@ namespace App\Models\Vendor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Location;
 
 class Vendor extends Model
 {
     use HasApiTokens, HasFactory;
 
     protected $guarded = ['id'];
+
+    protected $appends = ['location'];
+
+    protected $hidden = ['password'];
+
+    public function getLocationAttribute()
+    {
+        return Location::find($this->location_id);
+    }
+
 }
