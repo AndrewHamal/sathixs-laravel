@@ -14,7 +14,7 @@ class AddTrackingIdToPackagesTable extends Migration
     public function up()
     {
         Schema::table('packages', function (Blueprint $table) {
-            $table->string('tracking_id')->nullable();
+            // $table->string('tracking_id')->nullable();
         });
     }
 

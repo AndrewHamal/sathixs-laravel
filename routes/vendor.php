@@ -35,7 +35,6 @@ Route::get('test', function(){
 
 });
 
-
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
     Route::get('/', function (Request $request) {
         return Auth::user();

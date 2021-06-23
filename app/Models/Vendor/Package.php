@@ -13,7 +13,6 @@ class Package extends Model
     protected $guarded = ['id'];
     protected $with = ['category','vendor','package_file'];
 
-
     public function acceptPackage()
     {
         return $this->hasOne('App\Models\Accepted_package','package_id', 'id');

@@ -18,7 +18,7 @@ class ProfilePhotoController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'profile_photo' => ['required','image','mimes:jpeg,png,jpg,heic','max:2048']
         ]);
         $path = Storage::disk('public')->put('rider/images', $request->profile_photo);

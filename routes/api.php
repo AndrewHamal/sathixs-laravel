@@ -26,13 +26,13 @@ use App\Http\Controllers\Api\Rider\v1\Package\ReceiptController;
 */
 
 /* @ for rider registration */
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('rider/register', [AuthController::class, 'register']);
 
 /* @ for rider login */
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('rider/login', [AuthController::class, 'login']);
 
 /* @ authenticate routes only */
-Route::group(['middleware' => ['auth:sanctum']], function(){
+Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function(){
 
     /* @ for rider logout */
     Route::post('/logout', [AuthController::class, 'logout']);

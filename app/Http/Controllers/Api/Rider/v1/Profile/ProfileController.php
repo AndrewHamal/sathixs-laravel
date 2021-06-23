@@ -9,6 +9,7 @@ use App\Models\Rider\Rider_detail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -19,7 +20,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return Rider::with('riderDetail')->paginate(10);
+        $id = Auth::user()->id;
+        return Rider::with('riderDetail')->findOrFail($id);
     }
 
     /**
@@ -38,9 +40,9 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+
     }
 
     /**
@@ -51,7 +53,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        return Rider::with('riderDetail')->findOrFail($id);
+        // return Rider::with('riderDetail')->findOrFail($id);
     }
 
 
@@ -81,7 +83,7 @@ class ProfileController extends Controller
             'email' => $request->email
         ]);
 
-        Rider_detail::where('rider_id',$rider->id)->update([
+        Rider_detail::where('rider_id', $rider->id)->update([
             'date_of_birth' => $request->date_of_birth,
             'gender' => $request->gender
         ]);
