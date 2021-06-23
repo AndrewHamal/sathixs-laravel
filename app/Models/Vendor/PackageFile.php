@@ -10,4 +10,9 @@ class PackageFile extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function package()
+    {
+        return $this->belongsTo('App\Models\Vendor\Package','package_id','id');
+    }
 }

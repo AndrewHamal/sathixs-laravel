@@ -18,8 +18,8 @@ class CreateLocationsTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('country')->nullable();
-            $table->integer('long')->nullable();
-            $table->integer('lat')->nullable();
+            $table->double('long')->nullable();
+            $table->double('lat')->nullable();
             $table->string('whole_address')->nullable();
             $table->timestamps();
         });
