@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Rider\GeneralController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Vendor\VendorController;
 use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Admin\AuthenticatedSessionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +22,10 @@ use App\Http\Controllers\Admin\Package\PackageController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::group(['middleware' => 'auth'], function() {
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
 });
 
 Route::get('/home', [HomeController::class, 'index']);
@@ -35,3 +41,5 @@ Route::resource('adminuser', AdminController::class);
 Route::resource('admin_vendor', VendorController::class);
 
 Route::resource('admin_package', PackageController::class);
+
+
