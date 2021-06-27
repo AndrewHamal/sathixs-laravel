@@ -49,10 +49,10 @@ class RiderDataTable extends DataTable
             })
             ->addColumn('action', function ($query) {
 
-                $editUrl = URL::to('/rider/'.$query->id.'/edit');
-                $viewUrl = URL::to('rider/'.$query->id);
-                $activeUrl = URL::to('active/rider/'.$query->id);
-                $inactiveUrl = URL::to('inactive/rider/'.$query->id);
+                $editUrl = URL::to('admin/rider/'.$query->id.'/edit');
+                $viewUrl = URL::to('admin/rider/'.$query->id);
+                $activeUrl = URL::to('admin/active/rider/'.$query->id);
+                $inactiveUrl = URL::to('admin/inactive/rider/'.$query->id);
 
                 $button = '<a href="'.$editUrl.'" id="btnEdit" class="btn btn-sm btn-info mr-1 mb-1" title="Edit"><i class="fa fa-edit"></i> Edit</a>';
                 $button.= '<button data-id="'.$query->id.'" id="btnDelete" class="btn btn-sm btn-danger mr-1 mb-1" type="submit" title="Delete" ><i class="fa fa-trash"></i> Delete</button>';
