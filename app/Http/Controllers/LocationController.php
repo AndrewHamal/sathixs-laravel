@@ -20,7 +20,7 @@ class LocationController extends Controller
         return Vendor::
             where('id', '!=', \Auth::user()->id)
             ->where('location_id', '!=', null)
-            ->select('first_name', 'last_name','location_id')
+            ->select('first_name', 'last_name', 'location_id')
             ->get();
     }
 

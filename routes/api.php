@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Rider\v1\Profile\HomeLocationController;
 use App\Http\Controllers\Api\Rider\v1\Profile\WorkLocationController;
 use App\Http\Controllers\Api\Rider\v1\Package\ManagePackage;
 use App\Http\Controllers\Api\Rider\v1\Package\ReceiptController;
+use App\Http\Controllers\Api\Rider\v1\RiderLocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,5 +74,9 @@ Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function()
     /* @ package cancel part  */
     Route::get('/cancel_reason', [ManagePackage::class, 'cancel_reason']);
 
-    Route::post('/cancel_reason',[ManagePackage::class, 'add_cancel_reason']);
+    Route::post('/cancel_reason', [ManagePackage::class, 'add_cancel_reason']);
+
+    // @ rider tracking
+    Route::post('/tracking', [RiderLocationController::class, 'store']);
+
 });

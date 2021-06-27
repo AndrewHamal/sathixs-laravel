@@ -11,6 +11,9 @@ use App\Http\Controllers\Vendor\PackageStatusController;
 use App\Http\Controllers\Vendor\VendorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
+use App\Events\Vendor\ReceiveCoordinate;
+use App\Models\Vendor\Vendor;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,16 +31,9 @@ Route::post('vendor/register', [RegisterController::class, 'register']);
 Route::get('vendor/redirect', [LoginController::class, 'redirect']);
 Route::get('vendor/callback', [LoginController::class, 'callback']);
 
-use App\Events\Vendor\ReceiveCoordinate;
-Route::get('test', function(){
-
-        broadcast(new ReceiveCoordinate(['id'=>'dsds']));
-
-});
-
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
     Route::get('/', function (Request $request) {
-        return Auth::user();
+        return Vendor::find(\Auth::user()->id);
     });
 
     Route::resource('location', LocationController::class);

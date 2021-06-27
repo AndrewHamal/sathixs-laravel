@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\PackageRequest;
+use App\Models\Location;
 use App\Models\Vendor\Package;
 use App\Models\Vendor\PackageFile;
 use Illuminate\Http\Request;
@@ -52,8 +53,14 @@ class PackageController extends Controller
     public function store(PackageRequest $request)
     {
         $input = $request->all();
+
+        $location = Location::create($input['location']);
         $input['vendor_id'] = Auth::user()->id;
         $input['tracking_id'] =  (string) Str::uuid()->getHex();
+
+        unset($input['receiver_address']);
+
+        $input['receiver_address'] = $location->id;
         $package = Package::create($input);
 
         $package_files = [];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\Vendor\ReceiveCoordinate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Rider\HomeController;
 use App\Http\Controllers\Admin\Rider\RiderController;
@@ -7,6 +8,8 @@ use App\Http\Controllers\Admin\Rider\GeneralController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Vendor\VendorController;
 use App\Http\Controllers\Admin\Package\PackageController;
+use App\Http\Controllers\Admin\AuthenticatedSessionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +23,10 @@ use App\Http\Controllers\Admin\Package\PackageController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::group(['middleware' => 'auth'], function() {
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
 });
 
 Route::get('/home', [HomeController::class, 'index']);

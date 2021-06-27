@@ -35,14 +35,17 @@ class ReceiveCoordinate implements shouldBroadcast
 
     public function broadcastWith()
     {
-        return [
-            'hello' => $this->message
-        ];
+        return $this->message;
 
     }
 
     public function broadcastOn()
     {
         return new Channel('testChannel');
+    }
+
+    public function broadcastAs()
+    {
+        return 'location';
     }
 }

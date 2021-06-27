@@ -25,11 +25,14 @@ class AuthController extends Controller
         ]);
 
         Rider_detail::create(['rider_id'=> $rider->id]);
+        $token = $rider->createToken('ridersToken')->plainTextToken;
 
         return response()->json([
             'status_code'=> 200,
             'message' => 'Riders created Successfully!',
-            'data' => $rider
+            'data' => $rider,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
         ]);
     }
 
