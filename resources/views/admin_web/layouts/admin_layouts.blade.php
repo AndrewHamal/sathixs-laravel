@@ -142,7 +142,7 @@
                                    document.getElementById('logout-form').submit();
                                 "><i class="icon ion-power"></i> Sign Out</a>
                             </li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
                         </ul>
