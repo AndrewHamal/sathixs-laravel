@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Admin\Admin;
 use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class AdminDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,17 +22,17 @@ class UserDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->setRowId(function (User $user) {
+            ->setRowId(function (Admin $user) {
                 return $user->id;
             })
-            ->addColumn('role', function(User $user) {
-                return $user->role_id == 1 ? 'Admin' : $user->role_id;
+            ->addColumn('role', function(Admin $user) {
+                return $user->role->role;
             })
-            ->addColumn('registered at', function(User $user) {
+            ->addColumn('registered at', function(Admin $user) {
                 return $user->created_at->diffForHumans();
             })
-            ->addColumn('action', function (User $user) {
-                $editUrl = URL::to('/adminuser/'.$user->id.'/edit');
+            ->addColumn('action', function (Admin $user) {
+                $editUrl = URL::to('admin/adminuser/'.$user->id.'/edit');
                 $button = '<a href="'.$editUrl.'" id="btnEdit" class="btn btn-sm btn-info mr-1 mb-1" title="Edit"><i class="fa fa-edit"></i> Edit</a>';
                 $button.= '<button class="btn btn-sm btn-danger mr-1 mb-1" id="btnDelete" type="submit" title="Delete" data-id="'.$user->id.'"><i class="fa fa-trash"></i> Delete</button>';
 
@@ -46,7 +46,7 @@ class UserDataTable extends DataTable
      * @param \App\Models\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Admin $model)
     {
         return $model->newQuery();
     }

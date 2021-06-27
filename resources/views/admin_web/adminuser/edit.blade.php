@@ -1,4 +1,4 @@
-@extends('layouts.admin_layouts')
+@extends('admin_web.layouts.admin_layouts')
 
 @section('admin_content')
 
@@ -9,10 +9,10 @@
                 <h6 class="card-body-title">Edit Admin User</h6>
 
                 <div class="form-layout mt-3">
-                    <form method="post" action="{{ url('adminuser/'.$user->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ url('admin/adminuser/'.$user->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
-                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        <input type="hidden" name="admin_id" value="{{ $user->id }}">
                         <div class="row mg-b-25">
                             <div class="col-lg-4">
                                 <div class="form-group">
@@ -55,7 +55,10 @@
                                     <label class="form-control-label">Role: <span class="tx-danger">*</span></label>
                                     <select class="form-control select2 @error('role_id') is-invalid @enderror" data-placeholder="Choose Role" name="role_id" required>
                                         <option label="Choose Role"></option>
-                                        <option value="1" @php if($user->role_id == 1) echo 'selected' @endphp>Admin</option>
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}" @php if($user->role_id == $role->id) echo 'selected' @endphp>{{ $role->role }}</option>
+                                        @endforeach
+
                                     </select>
 
                                     @error('role_id')

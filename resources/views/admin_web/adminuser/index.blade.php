@@ -1,4 +1,4 @@
-@extends('layouts.admin_layouts')
+@extends('admin_web.layouts.admin_layouts')
 
 @section('admin_content')
 
@@ -9,7 +9,7 @@
 
             <div class="card pd-20 pd-sm-40">
                 <h6 class="card-body-title">Admin List
-                    <a href="{{ route('register') }}" class="btn btn-sm btn-success" style="float:right;"><i class="fa fa-plus"></i> Add New</a>
+                    <a href="{{ route('admin.register') }}" class="btn btn-sm btn-success" style="float:right;"><i class="fa fa-plus"></i> Add New</a>
                 </h6>
                 <div class="table-wrapper">
 
@@ -44,7 +44,7 @@
                 if (willDelete) {
                     const id = $(this).attr('data-id');
                     $.ajax({
-                        url: "{{ url('/adminuser/') }}/"+id,
+                        url: "{{ url('/admin/adminuser/') }}/"+id,
                         type: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
