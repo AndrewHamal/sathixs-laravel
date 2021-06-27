@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Vendor_web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
-use App\Models\Vendor_web\Vendor;
+use App\Models\Vendor\Vendor;
 
-class VendorWebController extends Controller
+class HomeController extends Controller
 {
     public function __construct()
     {
@@ -18,5 +18,16 @@ class VendorWebController extends Controller
     public function index()
     {
         return view('vendor_web.home');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        $notification = array(
+            'message' => 'Successfully Logout',
+            'alert-type' => 'success'
+        );
+
+        return Redirect()->route('webvendor.login')->with($notification);
     }
 }

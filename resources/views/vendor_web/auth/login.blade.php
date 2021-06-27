@@ -18,7 +18,7 @@
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                         </div>
-                                        <form class="user" action="{{ route('webvendor.loggedin') }}" method="post">
+                                        <form class="user" action="" method="post">
                                             @csrf
                                             <div class="form-group">
                                                 <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror"
@@ -58,13 +58,11 @@
                                             </a>
                                         </form>
                                         <hr>
-                                        @if (Route::has('password.request'))
                                         <div class="text-center">
-                                            <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
+                                            <a class="small" href="#">Forgot Password?</a>
                                         </div>
-                                        @endif
                                         <div class="text-center">
-                                            <a class="small" href="register.html">Create an Account!</a>
+                                            <a class="small" href="{{ route('webvendor.register') }}">Create an Account!</a>
                                         </div>
                                     </div>
                                 </div>
