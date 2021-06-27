@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\UserDataTable;
+use App\DataTables\AdminDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminUserRequest;
 use App\Http\Requests\Admin\UpdateAdminUserRequest;
-use App\Models\User;
+use App\Models\Admin\Admin;
+use App\Models\Admin\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Yajra\DataTables\DataTables;
 
 
 class AdminController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware('auth');
+        return $this->middleware('auth:admin');
     }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(UserDataTable $dataTable)
+    public function index(AdminDataTable $dataTable)
     {
-        return $dataTable->render('adminuser.index');
+        return $dataTable->render('admin_web.adminuser.index');
 
     }
 
@@ -36,7 +36,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::get();
+        return view('admin_web.auth.register',compact('roles'));
     }
 
     /**
@@ -47,7 +48,7 @@ class AdminController extends Controller
      */
     public function store(AdminUserRequest $request)
     {
-         User::create([
+         Admin::create([
             'name' => $request->name,
             'phone' => $request->phone,
             'role_id' => $request->role_id,
@@ -81,8 +82,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('adminuser.edit', compact('user'));
+        $user = Admin::find($id);
+        $roles = Role::get();
+        return view('admin_web.adminuser.edit', compact('user','roles'));
     }
 
     /**
@@ -94,7 +96,7 @@ class AdminController extends Controller
      */
     public function update(UpdateAdminUserRequest $request, $id)
     {
-        User::where('id',$id)->update([
+        Admin::where('id',$id)->update([
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
@@ -116,7 +118,7 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return response()->json(['message'=>'Product deleted successfully', 'type'=> 'success']);
+        Admin::destroy($id);
+        return response()->json(['message'=>'Admin User deleted successfully', 'type'=> 'success']);
     }
 }
