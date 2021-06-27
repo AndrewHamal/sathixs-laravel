@@ -1,4 +1,4 @@
-@extends('layouts.admin_layouts')
+@extends('admin_web.layouts.admin_layouts')
 
 @section('admin_content')
 
@@ -9,7 +9,7 @@
                 <h6 class="card-body-title">Edit Package</h6>
 
                 <div class="form-layout mt-3">
-                    <form method="post" action="{{ url('admin_package/'.$package->id)  }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ url('admin/admin_package/'.$package->id)  }}" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="col-lg-12">

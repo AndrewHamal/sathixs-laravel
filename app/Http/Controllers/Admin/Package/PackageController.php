@@ -17,7 +17,7 @@ class PackageController extends Controller
 
     public function __construct()
     {
-        return $this->middleware('auth');
+        return $this->middleware('auth:admin');
     }
 
     /**
@@ -27,7 +27,7 @@ class PackageController extends Controller
      */
     public function index(PackageDataTable $dataTable)
     {
-        return $dataTable->render('package.index');
+        return $dataTable->render('admin_web.package.index');
     }
 
     /**
@@ -39,7 +39,7 @@ class PackageController extends Controller
     {
         $categories = Category::get();
         $vendors = Vendor::get();
-        return view('package.create', compact('categories','vendors'));
+        return view('admin_web.package.create', compact('categories','vendors'));
     }
 
     /**
@@ -87,7 +87,7 @@ class PackageController extends Controller
     public function show($id)
     {
         $package = Package::find($id);
-        return view('package.show',compact('package'));
+        return view('admin_web.package.show',compact('package'));
     }
 
     /**
@@ -101,7 +101,7 @@ class PackageController extends Controller
         $package = Package::find($id);
         $categories = Category::get();
         $vendors = Vendor::get();
-        return view('package.edit',compact('package','categories','vendors'));
+        return view('admin_web.package.edit',compact('package','categories','vendors'));
     }
 
     /**
