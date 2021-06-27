@@ -1,4 +1,4 @@
-@extends('layouts.admin_layouts')
+@extends('admin_web.layouts.admin_layouts')
 
 @section('admin_content')
 
@@ -44,7 +44,7 @@
                     if (willDelete) {
                         const id = $(this).attr('data-id');
                         $.ajax({
-                            url: "{{ url('/admin_vendor/') }}/"+id,
+                            url: "{{ url('/admin/admin_vendor/') }}/"+id,
                             type: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
