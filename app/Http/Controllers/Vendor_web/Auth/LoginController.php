@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Vendor_web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Vendor\Vendor;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -52,6 +54,19 @@ class LoginController extends Controller
     protected function guard()
     {
         return Auth::guard('vendor');
+    }
+
+    protected function credentials(Request $request)
+    {
+
+        $vendor = Vendor::where(['email'=> $request->email])->first();
+        if($vendor->email_verified_at != null)
+        {
+            return $request->only($this->username(), 'password');
+        }else{
+            return [];
+        }
+
     }
 
 }

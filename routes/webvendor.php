@@ -14,3 +14,4 @@ Route::post('logout', [HomeController::class, 'logout'])->name('webvendor.logout
 
 Route::get('/register', [RegisterController::class, 'create'])->name('webvendor.register');
 Route::post('/register', [RegisterController::class, 'store']);
+Route::get('/verify/{code}', [RegisterController::class, 'verifyVendor'])->name('webvendor.verify');

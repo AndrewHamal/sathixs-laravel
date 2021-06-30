@@ -26,6 +26,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('vendor_web/css/sb-admin-2.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
 </head>
 
 <body>
@@ -433,6 +435,32 @@
 <!-- Page level custom scripts -->
 <script src="{{ asset('vendor_web/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{ asset('vendor_web/js/demo/chart-pie-demo.js') }}"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script>
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type','info') }}"
+    switch(type)
+    {
+        case 'info':
+            toastr.info(" {{ Session::get('message')}} ");
+            break;
+
+        case 'success':
+            toastr.success(" {{ Session::get('message')}} ");
+            break;
+
+        case 'warning':
+            toastr.warning(" {{ Session::get('message')}} ");
+            break;
+
+        case 'error':
+            toastr.error(" {{ Session::get('message')}} ");
+            break;
+    }
+    @endif
+</script>
 
 </body>
 
