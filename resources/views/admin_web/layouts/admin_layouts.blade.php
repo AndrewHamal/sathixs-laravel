@@ -232,7 +232,7 @@
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap4.min.js"></script>
 <script src="{{ asset('backend/lib/buttons.server-side.js') }}"></script>
-{{--<script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>--}}
+<script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>
 <script src="{{ asset('backend/lib/select2/js/select2.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
