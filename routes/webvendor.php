@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Vendor_web\HomeController;
 use App\Http\Controllers\Vendor_web\Auth\RegisterController;
 use App\Http\Controllers\Vendor_web\Packages\PackageController;
+use App\Http\Controllers\Vendor_web\Tickets\TicketController;
+use App\Http\Controllers\Vendor_web\GeneralController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('webvendor.dash');
 
@@ -18,3 +20,9 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/verify/{code}', [RegisterController::class, 'verifyVendor']);
 
 Route::resource('/package', PackageController::class);
+
+Route::resource('/ticket', TicketController::class);
+
+Route::get('active/ticket/{id}', [GeneralController::class, 'activeTicket']);
+
+Route::get('inactive/ticket/{id}', [GeneralController::class, 'inactiveTicket']);
