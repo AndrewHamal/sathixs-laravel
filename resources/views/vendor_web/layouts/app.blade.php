@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap4.min.css">
 
+    <link href="{{ asset('backend/css/profile_pic.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -57,7 +59,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="{{ route('webvendor.dash') }}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
@@ -71,6 +73,11 @@
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('webvendor.profile') }}">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>My Profile</span></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
@@ -337,7 +344,7 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('webvendor.profile') }}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
@@ -444,6 +451,8 @@
 <script src="{{ asset('vendor_web/js/demo/chart-pie-demo.js') }}"></script>
 
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+
+{{--<script src="{{ asset('backend/js/profile_pic.js') }}"></script>--}}
 
 <script>
     if(sessionStorage.getItem('items'))

@@ -7,6 +7,7 @@ use App\Http\Controllers\Vendor_web\Auth\RegisterController;
 use App\Http\Controllers\Vendor_web\Packages\PackageController;
 use App\Http\Controllers\Vendor_web\Tickets\TicketController;
 use App\Http\Controllers\Vendor_web\GeneralController;
+use App\Http\Controllers\Vendor_web\Profile\ProfileController;
 
 Route::get('/home', [HomeController::class, 'index'])->name('webvendor.dash');
 
@@ -26,3 +27,8 @@ Route::resource('/ticket', TicketController::class);
 Route::get('active/ticket/{id}', [GeneralController::class, 'activeTicket']);
 
 Route::get('inactive/ticket/{id}', [GeneralController::class, 'inactiveTicket']);
+
+// for vendor profile
+Route::get('profile', [ProfileController::class, 'show'])->name('webvendor.profile');
+Route::post('profile/{id}', [ProfileController::class, 'update']);
+
