@@ -23,7 +23,7 @@ class CancelReasonRequest extends FormRequest
      */
     public function rules()
     {
-        if($this->cancel_reason_id == 'other')
+        if($this->cancel_reasons_id == 5)
         {
             return [
                 'package_id' => ['required'],
@@ -32,9 +32,10 @@ class CancelReasonRequest extends FormRequest
         }else{
             return [
                 'package_id' => ['required'],
-                'cancel_reason_id' => ['required'],
+                'cancel_reasons_id' => ['required'],
             ];
         }
 
     }
+
 }

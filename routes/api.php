@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\Rider\v1\Profile\WorkLocationController;
 use App\Http\Controllers\Api\Rider\v1\Package\ManagePackage;
 use App\Http\Controllers\Api\Rider\v1\Package\ReceiptController;
 use App\Http\Controllers\Api\Rider\v1\RiderLocationController;
+use App\Http\Controllers\Api\Rider\LocationController;
+use App\Http\Controllers\Vendor\PackageStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +59,7 @@ Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function()
 
     Route::resource('work_address', WorkLocationController::class);
 
+    Route::resource('package-status', PackageStatusController::class);
 
     /* @ package accept processes routes */
     Route::get('/accept_package/{package_id}', [ManagePackage::class, 'acceptPackage']);
@@ -65,8 +68,9 @@ Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function()
 
     Route::get('/history', [ManagePackage::class, 'historyPackage']);
 
-    Route::get('/package/{package_id}', [ManagePackage::class, 'show_package']);
+    Route::get('/canceled', [ManagePackage::class, 'canceledPackage']);
 
+    Route::get('/package/{package_id}', [ManagePackage::class, 'show_package']);
 
     /* @ upload receipt of delivery  */
     Route::post('/upload_receipt', ReceiptController::class);
@@ -78,5 +82,8 @@ Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function()
 
     // @ rider tracking
     Route::post('/tracking', [RiderLocationController::class, 'store']);
+
+    // @get all vendor shop location
+    Route::get('/allVendorLocation', LocationController::class);
 
 });

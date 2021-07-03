@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             VendorSeeder::class,
             RiderSeeder::class,
             RiderDetailsSeeder::class,
+            RoleSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }

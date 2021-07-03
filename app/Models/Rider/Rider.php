@@ -14,6 +14,8 @@ class Rider extends Model
     protected $dates = ['deleted_at'];
     protected $guarded = [];
 
+    protected $hidden = ['password'];
+
     public function riderDetail()
     {
         return $this->hasOne('App\Models\Rider\Rider_detail','rider_id', 'id');
@@ -23,6 +25,5 @@ class Rider extends Model
     {
         return $this->hasOne('App\Models\Rider\Accepted_package','rider_id', 'id');
     }
-
 
 }

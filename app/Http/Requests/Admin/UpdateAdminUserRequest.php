@@ -25,8 +25,8 @@ class UpdateAdminUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required','email','unique:users,email,'.$this->user_id],
-            'phone' => ['required','unique:users,phone,'.$this->user_id],
+            'email' => ['required','email','unique:admins,email,'.$this->admin_id],
+            'phone' => ['required','unique:admins,phone,'.$this->admin_id],
             'role_id' => ['required'],
         ];
     }

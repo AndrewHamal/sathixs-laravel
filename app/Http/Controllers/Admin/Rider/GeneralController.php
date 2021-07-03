@@ -10,7 +10,7 @@ class GeneralController extends Controller
 {
     public function __construct()
     {
-        return $this->middleware('auth');
+        return $this->middleware('auth:admin');
     }
 
     public function activeRider($id)

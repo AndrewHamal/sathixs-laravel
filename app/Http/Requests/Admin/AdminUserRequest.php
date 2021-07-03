@@ -25,8 +25,8 @@ class AdminUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required','email','unique:users,email'],
-            'phone' => ['required','unique:users,phone'],
+            'email' => ['required','email','unique:admins,email'],
+            'phone' => ['required','unique:admins,phone'],
             'role_id' => ['required'],
             'password' => ['required','string','min:8','confirmed','regex:/[a-z]/','regex:/[A-Z]/','regex:/[0-9]/','regex:/[@$!%*#?&]/'],
         ];

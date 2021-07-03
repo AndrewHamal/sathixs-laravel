@@ -44,8 +44,8 @@ class PackageDataTable extends DataTable
             })
             ->addColumn('action', function ($query) {
 
-                $editUrl = URL::to('/admin_package/'.$query->id.'/edit');
-                $viewUrl = URL::to('admin_package/'.$query->id);
+                $editUrl = URL::to('/admin/admin_package/'.$query->id.'/edit');
+                $viewUrl = URL::to('/admin/admin_package/'.$query->id);
 
                 $button = '<a href="'.$editUrl.'" id="btnEdit" class="btn btn-sm btn-info mr-1 mb-1" title="Edit"><i class="fa fa-edit"></i> Edit</a>';
                 $button.= '<button data-id="'.$query->id.'" id="btnDelete" class="btn btn-sm btn-danger mr-1 mb-1" type="submit" title="Delete" ><i class="fa fa-trash"></i> Delete</button>';

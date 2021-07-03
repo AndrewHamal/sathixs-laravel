@@ -21,12 +21,16 @@ class RiderLocationController extends Controller
         $riderTrack = RiderTracking::create([
             'rider_id' => Auth::user()->id,
             'lat' => $request->lat,
-            'long' => $request->long
+            'long' => $request->long,
+            'heading' => $request->heading,
+            'package_id' => $request->package_id
         ]);
 
         broadcast(new ReceiveCoordinate([
             'lat' => $request->lat,
-            'long' => $request->long
+            'long' => $request->long,
+            'heading' => $request->heading,
+            'package_id' => $request->package_id
             ]
         ));
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Events\RiderPackage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\PackageRequest;
 use App\Models\Location;
@@ -10,6 +11,7 @@ use App\Models\Vendor\PackageFile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Str;
 
 class PackageController extends Controller
@@ -21,17 +23,25 @@ class PackageController extends Controller
      */
     public function index()
     {
-
         $search = \request('search');
+        $type = \request('type');
         $package = Package::query();
         $package->where('vendor_id', Auth::user()->id);
+
+        if($type == 1){
+            $package->whereHas('packageStatus', fn($row) => $row->where('process_step', '!=', 3));
+        }
+
+        if($type == 2){
+            $package->whereHas('packageStatus', fn($row) => $row->where('process_step', 3));
+        }
 
         if($search != '') {
             return $package
                 ->where('tracking_id', $search)
                 ->paginate();
         }
-        return $package->paginate(10);
+        return $package->orderBy('id', 'DESC')->paginate(10);
     }
 
     /**
@@ -74,6 +84,9 @@ class PackageController extends Controller
                 array_push($package_files, $package_file);
             }
         }
+
+        // after store send notification to all the rider
+        broadcast(new RiderPackage([Package::find($package->id)]));
 
         return response([
             'status' => true,

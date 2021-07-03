@@ -17,7 +17,7 @@ class VendorController extends Controller
 
     public function __construct()
     {
-        return $this->middleware('auth');
+        return $this->middleware('auth:admin');
     }
 
     /**
@@ -27,7 +27,7 @@ class VendorController extends Controller
      */
     public function index(VendorDataTable $dataTable)
     {
-        return $dataTable->render('vendor.index');
+        return $dataTable->render('admin_web.vendor.index');
     }
 
     /**
@@ -37,7 +37,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        return view('vendor.create');
+        return view('admin_web.vendor.create');
     }
 
     /**
@@ -88,7 +88,7 @@ class VendorController extends Controller
     public function show($id)
     {
         $vendor = Vendor::with('package')->find($id);
-        return view('vendor.show', compact('vendor'));
+        return view('admin_web.vendor.show', compact('vendor'));
     }
 
     /**
@@ -100,7 +100,7 @@ class VendorController extends Controller
     public function edit($id)
     {
         $vendor = Vendor::find($id);
-        return view('vendor.edit', compact('vendor'));
+        return view('admin_web.vendor.edit', compact('vendor'));
     }
 
     /**

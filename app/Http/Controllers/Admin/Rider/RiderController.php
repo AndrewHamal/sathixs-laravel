@@ -17,7 +17,7 @@ class RiderController extends Controller
 
     public function __construct()
     {
-        return $this->middleware('auth');
+        return $this->middleware('auth:admin');
     }
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class RiderController extends Controller
      */
     public function index(RiderDataTable $dataTable)
     {
-        return $dataTable->render('rider.index');
+        return $dataTable->render('admin_web.rider.index');
     }
 
     /**
@@ -36,7 +36,7 @@ class RiderController extends Controller
      */
     public function create()
     {
-        return view('rider.create');
+        return view('admin_web.rider.create');
     }
 
     /**
@@ -125,7 +125,7 @@ class RiderController extends Controller
     public function show($id)
     {
         $rider = Rider::with('riderDetail')->where('id', $id)->first();
-        return view('rider.show', compact('rider'));
+        return view('admin_web.rider.show', compact('rider'));
     }
 
     /**
@@ -137,7 +137,7 @@ class RiderController extends Controller
     public function edit($id)
     {
         $rider = Rider::with('riderDetail')->where('id', $id)->first();
-        return view('rider.edit', compact('rider'));
+        return view('admin_web.rider.edit', compact('rider'));
     }
 
     /**
