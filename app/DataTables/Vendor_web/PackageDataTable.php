@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Vendor_web;
 
 use App\Models\Vendor\Package;
 use Illuminate\Support\Facades\URL;
@@ -32,12 +32,6 @@ class PackageDataTable extends DataTable
             ->addColumn('special_instruction', function ($query) {
                 return Str::limit($query->special_instruction, 50);
             })
-            ->addColumn('vendor', function ($query) {
-                $firstName = $query->vendor->first_name;
-                $lastName = $query->vendor->last_name;
-                $phone = $query->vendor->phone;
-                return $firstName.' '.$lastName;
-            })
             ->addColumn('receiver_signature_image', function ($query) {
                 if($query->receiver_signature_image){
                     $url = asset('storage/'.$query->receiver_signature_image);
@@ -48,8 +42,8 @@ class PackageDataTable extends DataTable
             })
             ->addColumn('action', function ($query) {
 
-                $editUrl = URL::to('/admin/admin_package/'.$query->id.'/edit');
-                $viewUrl = URL::to('/admin/admin_package/'.$query->id);
+                $editUrl = URL::to('/webvendor/package/'.$query->id.'/edit');
+                $viewUrl = URL::to('/webvendor/package/'.$query->id);
 
                 $button = '<a href="'.$editUrl.'" id="btnEdit" class="btn btn-sm btn-info mr-1 mb-1" title="Edit"><i class="fa fa-edit"></i> Edit</a>';
                 $button.= '<button data-id="'.$query->id.'" id="btnDelete" class="btn btn-sm btn-danger mr-1 mb-1" type="submit" title="Delete" ><i class="fa fa-trash"></i> Delete</button>';
@@ -63,12 +57,12 @@ class PackageDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Package $model
+     * @param \App\Models\Vendor\Package $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Package $model)
     {
-        return $model->newQuery();
+        return Package::where('vendor_id', auth()->user()->id);
     }
 
     /**
@@ -79,7 +73,7 @@ class PackageDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('package-table')
+                    ->setTableId('vendor_web_packagedatatable')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
@@ -101,7 +95,6 @@ class PackageDataTable extends DataTable
     protected function getColumns()
     {
         return [
-
             Column::make('category'),
             Column::make('no_of_package'),
             Column::make('receiver_name'),
@@ -109,7 +102,6 @@ class PackageDataTable extends DataTable
             Column::make('receiver_phone'),
             Column::make('weight'),
             Column::make('special_instruction'),
-            Column::make('vendor'),
             Column::make('product_price'),
             Column::make('tracking_id'),
             Column::make('receiver_signature_name'),
@@ -129,6 +121,6 @@ class PackageDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Package_' . date('YmdHis');
+        return 'Vendor_web_Package_' . date('YmdHis');
     }
 }

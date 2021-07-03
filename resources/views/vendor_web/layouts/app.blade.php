@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>SathiXa</title>
 
@@ -25,6 +26,19 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('vendor_web/css/sb-admin-2.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap4.min.css">
+
+    <link href="{{ asset('backend/css/profile_pic.css') }}" rel="stylesheet">
+
+    <style>
+        .dataTable {
+            white-space: nowrap;
+        }
+    </style>
 
 </head>
 
@@ -51,7 +65,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="{{ route('webvendor.dash') }}">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
@@ -66,16 +80,20 @@
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('webvendor.profile') }}">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>My Profile</span></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                        aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>Components</span>
+                        <i class="fas fa-box-open"></i>
+                        <span>Packages</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Components:</h6>
-                            <a class="collapse-item" href="buttons.html">Buttons</a>
-                            <a class="collapse-item" href="cards.html">Cards</a>
+                            <a class="collapse-item" href="{{ route('package.index') }}">My Packages</a>
+                            <a class="collapse-item" href="{{ route('package.create') }}">Add Package</a>
                         </div>
                     </div>
                 </li>
@@ -84,17 +102,14 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                        aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>Utilities</span>
+                        <i class="fas fa-fw fa-pager"></i>
+                        <span>Tickets</span>
                     </a>
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                          data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Custom Utilities:</h6>
-                            <a class="collapse-item" href="utilities-color.html">Colors</a>
-                            <a class="collapse-item" href="utilities-border.html">Borders</a>
-                            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                            <a class="collapse-item" href="utilities-other.html">Other</a>
+                            <a class="collapse-item" href="{{ route('ticket.index') }}">My Tickets</a>
+                            <a class="collapse-item" href="{{ route('ticket.create') }}">Add Ticket</a>
                         </div>
                     </div>
                 </li>
@@ -325,7 +340,6 @@
                             </li>
 
                             <div class="topbar-divider d-none d-sm-block"></div>
-
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -336,7 +350,7 @@
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                      aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('webvendor.profile') }}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
@@ -421,6 +435,14 @@
 <script src="{{ asset('vendor_web/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor_web/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ asset('backend/lib/buttons.server-side.js') }}"></script>
+<script src="{{ asset('backend/lib/datatables-responsive/dataTables.responsive.js') }}"></script>
+
 <!-- Core plugin JavaScript-->
 <script src="{{ asset('vendor_web/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
@@ -434,6 +456,66 @@
 <script src="{{ asset('vendor_web/js/demo/chart-area-demo.js') }}"></script>
 <script src="{{ asset('vendor_web/js/demo/chart-pie-demo.js') }}"></script>
 
+<script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+
+{{--<script src="{{ asset('backend/js/profile_pic.js') }}"></script>--}}
+
+<script>
+    if(sessionStorage.getItem('items'))
+    {
+        var msgArray = JSON.parse(sessionStorage.getItem('items'));
+        var type = msgArray[1];
+        switch(type)
+        {
+            case 'info':
+                toastr.info(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
+
+            case 'success':
+                toastr.success(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
+
+            case 'warning':
+                toastr.warning(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
+
+            case 'error':
+                toastr.error(msgArray[0]);
+                sessionStorage.removeItem('items');
+                break;
+
+        }
+    }
+</script>
+
+<script>
+    @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type','info') }}"
+    switch(type)
+    {
+        case 'info':
+            toastr.info(" {{ Session::get('message')}} ");
+            break;
+
+        case 'success':
+            toastr.success(" {{ Session::get('message')}} ");
+            break;
+
+        case 'warning':
+            toastr.warning(" {{ Session::get('message')}} ");
+            break;
+
+        case 'error':
+            toastr.error(" {{ Session::get('message')}} ");
+            break;
+    }
+    @endif
+</script>
+
+@yield('js')
 </body>
 
 </html>
