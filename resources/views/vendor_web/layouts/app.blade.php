@@ -34,6 +34,12 @@
 
     <link href="{{ asset('backend/css/profile_pic.css') }}" rel="stylesheet">
 
+    <style>
+        .dataTable {
+            white-space: nowrap;
+        }
+    </style>
+
 </head>
 
 <body>

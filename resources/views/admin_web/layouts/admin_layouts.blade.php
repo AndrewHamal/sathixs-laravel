@@ -35,8 +35,8 @@
     <link rel="stylesheet" href="{{ asset('backend/css/custom.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap4.min.css">
     <style>
-        #datatable1 {
-            width:100%!important;
+        .dataTable {
+            white-space: nowrap;
         }
 
         .admin-user-icon{

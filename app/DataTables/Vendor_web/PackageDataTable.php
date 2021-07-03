@@ -4,6 +4,7 @@ namespace App\DataTables\Vendor_web;
 
 use App\Models\Vendor\Package;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -27,6 +28,9 @@ class PackageDataTable extends DataTable
             })
             ->addColumn('category', function ($query) {
                 return $query->category->title;
+            })
+            ->addColumn('special_instruction', function ($query) {
+                return Str::limit($query->special_instruction, 50);
             })
             ->addColumn('receiver_signature_image', function ($query) {
                 if($query->receiver_signature_image){
@@ -79,7 +83,7 @@ class PackageDataTable extends DataTable
                         Button::make('pageLength'),
                     )
                     ->scrollX('true')
-                    ->responsive('true')
+                    ->responsive('false')
                     ->lengthMenu([[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]);
     }
 
