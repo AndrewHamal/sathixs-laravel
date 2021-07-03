@@ -26,4 +26,9 @@ class Vendor extends Authenticatable
         return $this->hasMany('App\Models\Vendor\Package','vendor_id','id');
     }
 
+    public function ticket()
+    {
+        return $this->hasMany('App\Models\Vendor\Ticket', 'vendor_id', 'id');
+    }
+
 }
