@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Api\Rider\v1\Package;
 
+use App\Events\RiderPackage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rider\v1\CancelReasonRequest;
 use App\Models\Rider\Accepted_package;
 use App\Models\CancelReason;
+use App\Models\Rider\CancelRide;
+use App\Models\Vendor\Package;
 use App\Models\Vendor\PackageStatus;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -30,11 +33,10 @@ class ManagePackage extends Controller
                 'message' => 'Package Accepted!',
                 'data' => $accept_package
             ]);
-
         }
 
         return response([
-            'message' => 'Package already accepted!!!',
+            'message' => 'Sorry, Package already accepted',
         ], Response::HTTP_EXPECTATION_FAILED);
 
     }
@@ -53,14 +55,16 @@ class ManagePackage extends Controller
 
     public function canceledPackage()
     {
-        return PackageStatus::where('rider_id', auth()->user()->id)
-        ->whereHas('acceptedPackage', fn($row) => $row->where('custom_cancel_reason', '!=', null)->OrWhere('cancel_reasons_id', '!=', null))
+        return CancelRide::where('rider_id', auth()->user()->id)
         ->paginate(10);
+
     }
 
     public function show_package($id)
     {
-        return PackageStatus::where([['rider_id',auth()->user()->id],['package_id',$id]])->first();
+        return PackageStatus::where([['rider_id',auth()->user()->id],['package_id',$id]])
+        
+        ->first();
     }
 
     public function cancel_reason()
@@ -70,15 +74,28 @@ class ManagePackage extends Controller
 
     public function add_cancel_reason(CancelReasonRequest $request)
     {
-        $data = Accepted_package::where([['rider_id',auth()->user()->id],['package_id',$request->package_id]])->update([
-            'cancel_reasons_id' =>  $request->cancel_reasons_id != 5 ? $request->cancel_reasons_id : null,
-            'custom_cancel_reason' => $request->cancel_reasons_id == 5 ? $request->custom_cancel_reason : null
-        ]);
+        try{
+            $data = CancelRide::create([
+                'rider_id' => auth()->user()->id,
+                'package_id' => $request->package_id,
+                'cancel_reasons_id' =>  $request->cancel_reasons_id != 5 ? $request->cancel_reasons_id : null,
+                'custom_cancel_reason' => $request->cancel_reasons_id == 5 ? $request->custom_cancel_reason : null
+            ]);
 
-        return response([
-            'message'=> 'Package cancel reason added',
-            'data' => $data
-        ]);
+            Accepted_package::where('package_id', $request->package_id)->delete();
+
+            // after store send notification to all the rider
+            broadcast(new RiderPackage([Package::find($request->package_id), 'rider_id' => auth()->user()->id]));
+
+            return response([
+                'message'=> 'Package cancel reason added',
+                'data' => $data
+            ]);
+        }catch(\Exception $e){
+            return response([
+                'message' => 'Something went wrong, please try again!',
+                'data' => $e
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
-
 }
