@@ -87,6 +87,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <a href="{{ URL::to('/webvendor/package/share/'.$package->id) }}" class="btn btn-info">Share Package</a>
+                </div>
             </div>
         </div>
     </div>

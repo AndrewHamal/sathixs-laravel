@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Vendor\VendorController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('admin.home');
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/', [LoginController::class, 'login']);

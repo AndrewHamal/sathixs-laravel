@@ -34,6 +34,11 @@
 
     <link href="{{ asset('backend/css/profile_pic.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
     <style>
         .dataTable {
             white-space: nowrap;
@@ -458,7 +463,12 @@
 
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 
-{{--<script src="{{ asset('backend/js/profile_pic.js') }}"></script>--}}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.74.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+<script src="{{ asset('vendor_web/js/map.js') }}"></script>
 
 <script>
     if(sessionStorage.getItem('items'))

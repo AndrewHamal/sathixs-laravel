@@ -32,3 +32,7 @@ Route::get('inactive/ticket/{id}', [GeneralController::class, 'inactiveTicket'])
 Route::get('profile', [ProfileController::class, 'show'])->name('webvendor.profile');
 Route::post('profile/{id}', [ProfileController::class, 'update']);
 
+Route::get('location', [GeneralController::class, 'location']);
+
+Route::get('package/share/{id}', [GeneralController::class, 'package_share']);
+

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendor_web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Vendor\Ticket;
+use App\Models\Vendor\Vendor;
 use Illuminate\Http\Request;
 
 class GeneralController extends Controller
@@ -33,5 +34,16 @@ class GeneralController extends Controller
             'alert-type'=>'success'
         );
         return Redirect()->back()->with($notification);
+    }
+
+    public function location()
+    {
+        $vendor = Vendor::where('id', auth()->user()->id)->first();
+        return view('vendor_web.location.map', compact('vendor'));
+    }
+
+    public function package_share($id)
+    {
+        dd($id);
     }
 }
