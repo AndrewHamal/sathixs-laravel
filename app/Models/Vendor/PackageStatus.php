@@ -10,7 +10,7 @@ class PackageStatus extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['package', 'acceptedPackage'];
+    protected $with = ['package', 'acceptedPackage', 'cancelRide'];
 
     public function package()
     {
@@ -20,5 +20,10 @@ class PackageStatus extends Model
     public function acceptedPackage()
     {
         return $this->belongsTo('App\Models\Rider\Accepted_package', 'package_id', 'package_id');
+    }
+
+    public function cancelRide()
+    {
+        return $this->belongsTo('App\Models\Rider\CancelRide', 'package_id', 'package_id');
     }
 }

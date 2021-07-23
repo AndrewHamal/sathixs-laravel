@@ -3,6 +3,7 @@
 use App\Events\Vendor\ReceiveCoordinate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Models\Vendor\Package;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,8 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return Package::get()->where('process_step', null)->first();
 });
 
 Auth::routes();

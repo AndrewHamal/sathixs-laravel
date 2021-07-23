@@ -14,7 +14,7 @@ class AddPackageIdToRiderTrackings extends Migration
     public function up()
     {
         Schema::table('rider_trackings', function (Blueprint $table) {
-            $table->integer('package_id');
+            // $table->integer('package_id');
         });
     }
 
