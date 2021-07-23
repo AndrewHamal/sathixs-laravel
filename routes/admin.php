@@ -9,12 +9,10 @@ use App\Http\Controllers\Admin\Vendor\VendorController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 
-
-
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/',[LoginController::class, 'login']);
+Route::post('/', [LoginController::class, 'login']);
 Route::get('/register', [AdminController::class, 'create'])->name('admin.register');
 
 Route::post('logout', [HomeController::class, 'logout'])->name('admin.logout');
