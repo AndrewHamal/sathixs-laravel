@@ -60,12 +60,18 @@ class LoginController extends Controller
     {
 
         $vendor = Vendor::where(['email'=> $request->email])->first();
-        if($vendor->email_verified_at != null)
+        if($vendor != null)
         {
-            return $request->only($this->username(), 'password');
+            if($vendor->email_verified_at != null)
+            {
+                return $request->only($this->username(), 'password');
+            }else{
+                return [];
+            }
         }else{
             return [];
         }
+
 
     }
 
