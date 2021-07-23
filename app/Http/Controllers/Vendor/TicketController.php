@@ -18,8 +18,21 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return Ticket::where('vendor_id', Auth::user()->id)
+        $type = request('type');
+
+        $ticket = Ticket::where('vendor_id', Auth::user()->id)
+        ->orderBy('id', 'DESC')
+        ->get();
+
+        if($type != '') {
+            $ticket = Ticket::where('vendor_id', Auth::user()->id)
+            ->where('status', $type)
+            ->orderBy('id', 'DESC')
             ->get();
+        }
+
+       return $ticket;
+
     }
 
     /**
@@ -42,6 +55,9 @@ class TicketController extends Controller
     {
         $input = $request->all();
         $input['vendor_id'] = Auth::user()->id;
+        $input['phone'] = Auth::user()->phone ?? 'null';
+        $input['email'] = Auth::user()->email;
+        $input['name'] = $input['type'];
         $ticket = Ticket::create($input);
 
         $ticket_files = [];

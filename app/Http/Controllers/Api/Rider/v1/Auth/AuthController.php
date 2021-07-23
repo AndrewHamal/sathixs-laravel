@@ -60,6 +60,7 @@ class AuthController extends Controller
         return response()->json([
             'status_code' => 200,
             'message' => 'Logged in Successfully!',
+            'data' =>  $rider,
             'token' => $token
         ]);
     }

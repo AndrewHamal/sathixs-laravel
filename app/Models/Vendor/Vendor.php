@@ -15,7 +15,7 @@ class Vendor extends Authenticatable
 
     protected $guarded = ['id','vendor'];
 
-    protected $appends = ['location'];
+    protected $appends = ['location', 'pan', 'tax', 'id_proof'];
 
     protected $hidden = ['password'];
 
@@ -53,6 +53,51 @@ class Vendor extends Authenticatable
         }
 
         return $uploaded;
+    }
+
+    public function getPanAttribute()
+    {
+        $image = [];
+        $vendor = VendorDetail::find($this->id)->pan ?? [];
+        if(count($vendor) > 0) {
+            foreach($vendor as $key=>$r){
+                $image[$key] = [
+                    'uid' => $key,
+                    'name' => env('APP_URL'). Storage::url($r),
+                ];
+            }
+            return $image;
+        }
+    }
+
+    public function getIdProofAttribute()
+    {
+        $image = [];
+        $vendor = VendorDetail::find($this->id)->id_proof ?? [];
+        if(count($vendor) > 0) {
+            foreach($vendor as $key=>$r){
+                $image[$key] = [
+                    'uid' => $key,
+                    'name' => env('APP_URL'). Storage::url($r),
+                ];
+            }
+            return $image;
+        }
+    }
+
+    public function getTaxAttribute()
+    {
+        $image = [];
+        $vendor = VendorDetail::find($this->id)->tax ?? [];
+        if(count($vendor) > 0) {
+            foreach($vendor as $key=>$r){
+                $image[$key] = [
+                    'uid' => $key,
+                    'name' => env('APP_URL'). Storage::url($r),
+                ];
+            }
+            return $image;
+        }
     }
 
 }

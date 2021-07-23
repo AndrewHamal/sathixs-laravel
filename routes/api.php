@@ -15,7 +15,9 @@ use App\Http\Controllers\Api\Rider\v1\Package\ManagePackage;
 use App\Http\Controllers\Api\Rider\v1\Package\ReceiptController;
 use App\Http\Controllers\Api\Rider\v1\RiderLocationController;
 use App\Http\Controllers\Api\Rider\LocationController;
+use App\Http\Controllers\Api\Rider\v1\ChatController;
 use App\Http\Controllers\Vendor\PackageStatusController;
+use Illuminate\Support\Facades\Broadcast;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,8 @@ Route::post('rider/register', [AuthController::class, 'register']);
 /* @ for rider login */
 Route::post('rider/login', [AuthController::class, 'login']);
 
+Broadcast::routes(['middleware' => ['auth:sanctum'], 'prefix' => 'rider']);
+
 /* @ authenticate routes only */
 Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function(){
 
@@ -43,15 +47,17 @@ Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function()
     /* @ profile routes */
     Route::resource('riders', ProfileController::class);
 
-
     /* @ for uploading different documents */
     Route::post('/upload_profile', ProfilePhotoController::class);
 
-    Route::resource('license', DrivingLicenseController::class);
+    Route::post('license', [DrivingLicenseController::class, 'update']);
+    Route::post('license/destroy/{id}', [DrivingLicenseController::class, 'destroy']);
 
-    Route::resource('photo_proof', PhotoProofController::class);
+    Route::post('photo-proof', [PhotoProofController::class, 'update']);
+    Route::post('photo-proof/destroy/{id}', [PhotoProofController::class, 'destroy']);
 
-    Route::resource('insurance', VehicleInsuranceController::class);
+    Route::post('insurance', [VehicleInsuranceController::class, 'update']);
+    Route::post('insurance/destroy/{id}', [VehicleInsuranceController::class, 'destroy']);
 
     Route::resource('certificate', RegistrationCertificateController::class);
 
@@ -86,4 +92,7 @@ Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function()
     // @get all vendor shop location
     Route::get('/allVendorLocation', LocationController::class);
 
+    Route::get('/chat/{id}', [ChatController::class, 'index']);
+
+    Route::post('/chat', [ChatController::class, 'store']);
 });

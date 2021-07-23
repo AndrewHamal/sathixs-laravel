@@ -34,6 +34,7 @@ class LoginController extends Controller
             'message' => "Successfully logged in",
             'data' => [
                 'type' => 'Bearer',
+                'data' =>  $vendor,
                 'token' => $vendor->createToken('vendor-token')->plainTextToken,
             ],
         ], Response::HTTP_OK);
