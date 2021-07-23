@@ -24,8 +24,8 @@ class TicketRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required',
+            'name' => 'nullable',
+            'email' => 'nullable',
             'phone' => 'nullable',
             'subject' => 'nullable',
             'message' => 'required',

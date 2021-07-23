@@ -63,7 +63,7 @@ class ManagePackage extends Controller
     public function show_package($id)
     {
         return PackageStatus::where([['rider_id',auth()->user()->id],['package_id',$id]])
-        
+
         ->first();
     }
 

@@ -12,7 +12,9 @@ use App\Http\Controllers\Vendor\VendorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
 use App\Events\Vendor\ReceiveCoordinate;
+use App\Http\Controllers\Vendor\ChatController;
 use App\Models\Vendor\Vendor;
+use Illuminate\Support\Facades\Broadcast;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,14 +33,27 @@ Route::post('vendor/register', [RegisterController::class, 'register']);
 Route::get('vendor/redirect', [LoginController::class, 'redirect']);
 Route::get('vendor/callback', [LoginController::class, 'callback']);
 
+Broadcast::routes(['middleware' => ['auth:sanctum'], 'prefix' => 'vendor']);
+
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
+
     Route::get('/', function (Request $request) {
         return Vendor::find(\Auth::user()->id);
     });
 
     Route::resource('location', LocationController::class);
 
-    Route::post('update-vendor', VendorController::class);
+    Route::post('update-vendor-location', [VendorController::class, 'locationUpdate']);
+    Route::post('update-vendor', [VendorController::class, 'profileUpdate']);
+
+    Route::post('pan', [VendorController::class, 'updatePan']);
+    Route::post('pan/destroy/{id}', [VendorController::class, 'destroyPan']);
+
+    Route::post('id-proof', [VendorController::class, 'updateId']);
+    Route::post('id-proof/destroy/{id}', [VendorController::class, 'destroyId']);
+
+    Route::post('tax', [VendorController::class, 'updateTax']);
+    Route::post('tax/destroy/{id}', [VendorController::class, 'destroyTax']);
 
     Route::post('logout', [LoginController::class, 'logout']);
 
@@ -51,4 +66,8 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
     Route::post('package-cancel', PackageCancelController::class);
 
     Route::get('categories', CategoryController::class);
+
+    Route::post('/chat', [ChatController::class, 'store']);
+
+    Route::get('/chat/{id}', [ChatController::class, 'index']);
 });

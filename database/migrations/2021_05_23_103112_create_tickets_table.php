@@ -19,7 +19,7 @@ class CreateTicketsTable extends Migration
                 ->constrained('vendors')
                 ->cascadeOnDelete();
 
-            $table->string('name');
+            $table->string('type');
             $table->string('email');
             $table->string('phone')->nullable();
             $table->string('subject')->nullable();

@@ -27,8 +27,8 @@ class RiderProfileRequest extends FormRequest
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required','email'],
-            'date_of_birth' => ['required','date_format:Y-m-d','before:16 years ago'],
-            'gender' => ['required']
+            'date_of_birth' => ['nullable','before:18 years ago'],
+            'gender' => ['nullable']
 
         ];
     }
@@ -36,7 +36,7 @@ class RiderProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            'before'=> 'You are not eligible.'
+            'before'=> 'You are not eligible. Must be at least 18 years old'
         ];
     }
 }

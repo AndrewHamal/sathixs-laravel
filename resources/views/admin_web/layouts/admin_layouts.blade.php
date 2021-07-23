@@ -237,11 +237,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 
-
-
-
-
-
 <script src="{{ asset('backend/lib/jquery.sparkline.bower/jquery.sparkline.min.js') }}"></script>
 <script src="{{ asset('backend/lib/d3/d3.js') }}"></script>
 <script src="{{ asset('backend/lib/rickshaw/rickshaw.min.js') }}"></script>

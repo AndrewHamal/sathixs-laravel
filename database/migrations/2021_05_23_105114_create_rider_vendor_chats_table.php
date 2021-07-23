@@ -19,8 +19,9 @@ class CreateRiderVendorChatsTable extends Migration
                 ->constrained('vendors')
                 ->cascadeOnDelete();
             $table->integer('rider_id');
-            $table->integer('message');
-            $table->integer('message_type')->nullable();
+            $table->longText('message');
+            $table->integer('package_id');
+            $table->string('message_type')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });
