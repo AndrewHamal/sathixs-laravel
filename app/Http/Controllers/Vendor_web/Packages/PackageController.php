@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Vendor_web\Packages;
 
 use App\DataTables\Vendor_web\PackageDataTable;
+use App\Events\RiderPackage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor_web\Packages\PackageRequest;
 use App\Http\Requests\Vendor_web\Packages\UpdatePackageRequest;
 use App\Models\Category;
+use App\Models\Rider\Accepted_package;
 use App\Models\Vendor\Package;
 use App\Models\Vendor\PackageFile;
 use Illuminate\Database\Eloquent\Model;
@@ -66,6 +68,10 @@ class PackageController extends Controller
             }
         }
 
+        // after store send notification to all the rider
+        broadcast(new RiderPackage([Package::find($package->id)]));
+
+
         $notification=array(
             'message'=>'Package Added Successfully',
             'alert-type'=>'success'
@@ -83,7 +89,8 @@ class PackageController extends Controller
     public function show($id)
     {
         $package = Package::find($id);
-        return view('vendor_web.packages.show',compact('package'));
+        $check_accepted_package = Accepted_package::where('package_id', $id)->first();
+        return view('vendor_web.packages.show',compact('package','check_accepted_package'));
     }
 
     /**

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Vendor_web;
 
+use App\Events\RiderPackage;
 use App\Http\Controllers\Controller;
+use App\Models\Rider\Accepted_package;
+use App\Models\Vendor\Package;
 use App\Models\Vendor\Ticket;
 use App\Models\Vendor\Vendor;
 use Illuminate\Http\Request;
@@ -42,8 +45,4 @@ class GeneralController extends Controller
         return view('vendor_web.location.map', compact('vendor'));
     }
 
-    public function package_share($id)
-    {
-        dd($id);
-    }
 }

@@ -87,8 +87,12 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-4">
-                    <a href="{{ URL::to('/webvendor/package/share/'.$package->id) }}" class="btn btn-info">Share Package</a>
+                    @if($check_accepted_package != null)
+                        <a href="{{ route('track.rider') }}" class="btn btn-info">Track My Rider</a>
+                    @else
+                    @endif
                 </div>
             </div>
         </div>
