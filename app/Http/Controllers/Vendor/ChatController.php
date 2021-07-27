@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Events\ChatNotify;
+use App\Events\TicketChat as EventsTicketChat;
 use App\Http\Controllers\Controller;
+use App\Models\TicketChat;
 use App\Models\Vendor\RiderVendorChat;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,5 +35,17 @@ class ChatController extends Controller
             'status' => true,
             'message' => 'Message send Successfully',
         ], Response::HTTP_CREATED);
+    }
+
+    public function storeTicketChat($id, Request $request)
+    {
+        TicketChat::create([
+            'vendor_id' => Auth::user()->id,
+            'message' => $request->message,
+            'ticket_id' => $id
+        ]);
+
+        Broadcast(new EventsTicketChat(['ticket_id' => $id]));
+        return response()->json('success');
     }
 }

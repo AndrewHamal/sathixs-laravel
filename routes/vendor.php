@@ -13,6 +13,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
 use App\Events\Vendor\ReceiveCoordinate;
 use App\Http\Controllers\Vendor\ChatController;
+use App\Http\Controllers\Vendor\TicketChatController;
 use App\Models\Vendor\Vendor;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -69,5 +70,11 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
 
     Route::post('/chat', [ChatController::class, 'store']);
 
+
+    Route::post('/ticket-chat/{id}', [ChatController::class, 'storeTicketChat']);
+
     Route::get('/chat/{id}', [ChatController::class, 'index']);
+
+    Route::get('/ticket-chat/{id}', [TicketChatController::class, 'index']);
+
 });

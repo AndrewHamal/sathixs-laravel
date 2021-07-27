@@ -60,7 +60,8 @@
     <div class="sl-sideleft">
 
         <div class="sl-sideleft-menu">
-            <a href="{{ route('admin.home') }}" class="sl-menu-link active">
+
+            <a href="{{ route('admin.home') }}" class="sl-menu-link @if(Request::path() == 'admin/home') active @endif">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                     <span class="menu-item-label">Dashboard</span>
@@ -74,9 +75,9 @@
                     <i class="menu-item-arrow fa fa-angle-down"></i>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
-            <ul class="sl-menu-sub nav flex-column">
-                <li class="nav-item"><a href="{{ route('adminuser.index') }}" class="nav-link">All User</a></li>
-                <li class="nav-item"><a href="{{ route('admin.register') }}" class="nav-link">Add User</a></li>
+            <ul class="sl-menu-sub nav flex-column" @if(in_array(Request::path(), ['admin/adminuser', 'admin/register'])) style="display: block" @endif>
+                <li class="nav-item"><a href="{{ route('adminuser.index') }}" class="nav-link  @if( Request::path() == 'admin/adminuser') active @endif">All User</a></li>
+                <li class="nav-item"><a href="{{ route('admin.register') }}" class="nav-link @if( Request::path() == 'admin/register') active @endif">Add User</a></li>
             </ul>
 
             <a href="#" class="sl-menu-link">
@@ -114,6 +115,20 @@
                 <li class="nav-item"><a href="{{ route('admin_package.index') }}" class="nav-link">All Packages</a></li>
                 <li class="nav-item"><a href="{{ route('admin_package.create') }}" class="nav-link">Add Package</a></li>
             </ul>
+
+            <a href="#" class="sl-menu-link">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon icon ion-ios-filing tx-20"></i>
+                    <span class="menu-item-label">Ticket</span>
+                    <i class="menu-item-arrow fa fa-angle-down"></i>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
+            <ul class="sl-menu-sub nav flex-column" @if(in_array(Request::path(), ['admin/ticket'])) style="display: block" @endif>
+                <li class="nav-item"><a href="{{ route('ticket.index') }}" class="nav-link  @if( Request::path() == 'admin/ticket' && request()->type != 'closed') active @endif">Active Ticket</a></li>
+                <li class="nav-item"><a href="{{ route('ticket.index', ['type' => 'closed']) }}" class="nav-link  @if( request()->type == 'closed') active @endif">Closed Ticket</a></li>
+            </ul>
+
+
 
         </div><!-- sl-sideleft-menu -->
 
@@ -217,6 +232,7 @@
 
 
 @endguest
+
 @yield('admin_content')
 
 <script src="{{ asset('backend/lib/jquery/jquery.js') }}"></script>
