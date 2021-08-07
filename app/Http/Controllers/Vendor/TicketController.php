@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Vendor\TicketRequest;
+use App\Models\TicketChat;
 use App\Models\Vendor\Ticket;
 use App\Models\Vendor\TicketFile;
 use Illuminate\Http\Response;
@@ -61,16 +62,21 @@ class TicketController extends Controller
         $ticket = Ticket::create($input);
 
         $ticket_files = [];
-        if ( $request->hasFile('image')){
-            $ticketInstance = new Ticket();
-            $files = $ticketInstance->uploadFiles($request->image);
-            foreach ($files as $file)
-            {
-                $file['ticket_id'] =  $ticket->id;
-                $ticket_file = TicketFile::create($file);
-                array_push($ticket_files, $ticket_file);
-            }
+
+        $ticketInstance = new Ticket();
+        $files = $ticketInstance->uploadFiles($request->image);
+        foreach ($files as $file)
+        {
+            $file['ticket_id'] =  $ticket->id;
+            $ticket_file = TicketFile::create($file);
+            array_push($ticket_files, $ticket_file);
         }
+
+        TicketChat::create([
+            'ticket_id' => $ticket->id,
+            'vendor_id' => Auth::user()->id,
+            'message' => $request->message
+        ]);
 
         return response([
             'status' => true,

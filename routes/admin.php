@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Rider\RiderController;
 use App\Http\Controllers\Admin\Vendor\VendorController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\TicketController;
+use Illuminate\Support\Facades\Broadcast;
 
 Route::get('/home', [HomeController::class, 'index'])->name('admin.home');
 
@@ -28,3 +30,7 @@ Route::resource('adminuser', AdminController::class);
 Route::resource('admin_vendor', VendorController::class);
 
 Route::resource('admin_package', PackageController::class);
+
+Route::resource('ticket', TicketController::class);
+
+Route::post('ticket-mark-complete', [TicketController::class, 'markComplete']);

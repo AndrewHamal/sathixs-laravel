@@ -11,10 +11,10 @@ class TicketFile extends Model
 
     protected $guarded = ['id'];
 
-    public function ticket()
-    {
-        return $this->belongsTo('App\Models\Vendor\Ticket','ticket_id', 'id');
-    }
+    // public function ticket()
+    // {
+    //     return $this->belongsTo('App\Models\Vendor\Ticket','ticket_id', 'id');
+    // }
 
 
 }

@@ -22,12 +22,10 @@ Route::get('/', function () {
 //    return Package::get()->where('process_step', null)->first();
 });
 
+Broadcast::routes(['middleware' => ['auth:api']]);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-
-
 
 
 

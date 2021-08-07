@@ -14,7 +14,7 @@ class Package extends Model
 
     protected $guarded = ['id'];
     protected $with = ['category', 'vendor', 'package_file', 'Location'];
-    protected $appends = ['process_step', 'rider'];
+    protected $appends = ['process_step', 'rider', 'chat_last', 'new_chat'];
 
     public function acceptPackage()
     {
@@ -69,5 +69,19 @@ class Package extends Model
     {
         $riderId = @PackageStatus::where('package_id', $this->id)->first()->rider_id;
         return @Rider::find($riderId) ?? '';
+    }
+
+    public function getChatLastAttribute()
+    {
+        return RiderVendorChat::where('package_id', $this->id)
+        ->orderBy('id', 'DESC')
+        ->first();
+    }
+
+    public function getNewChatAttribute()
+    {
+        return RiderVendorChat::where('package_id', $this->id)
+        ->where('status', 1)
+        ->exists();
     }
 }
