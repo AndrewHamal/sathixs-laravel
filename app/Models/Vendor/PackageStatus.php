@@ -11,6 +11,7 @@ class PackageStatus extends Model
 
     protected $guarded = ['id'];
     protected $with = ['package', 'acceptedPackage', 'cancelRide'];
+    protected $appends = ['chat_last', 'new_chat'];
 
     public function package()
     {
@@ -25,5 +26,19 @@ class PackageStatus extends Model
     public function cancelRide()
     {
         return $this->belongsTo('App\Models\Rider\CancelRide', 'package_id', 'package_id');
+    }
+
+    public function getChatLastAttribute()
+    {
+        return RiderVendorChat::where('package_id', $this->package->id)
+        ->orderBy('id', 'DESC')
+        ->first();
+    }
+
+    public function getNewChatAttribute()
+    {
+        return RiderVendorChat::where('package_id', $this->package->id)
+        ->where('status', 1)
+        ->exists();
     }
 }

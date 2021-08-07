@@ -5,13 +5,16 @@ namespace App\Models\Vendor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Vendor\TicketFile;
 
 class Ticket extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['vendor','ticket_file'];
+    protected $with = ['vendor'];
+
+    protected $appends = ['ticket_file'];
 
     public function uploadFiles($files): array
     {
@@ -27,9 +30,19 @@ class Ticket extends Model
         return $uploaded;
     }
 
-    public function ticket_file()
+    public function getTicketFileAttribute()
     {
-        return $this->hasMany('App\Models\Vendor\TicketFile','ticket_id', 'id');
+        $image = [];
+        $ticket = TicketFile::where('ticket_id', $this->id)->get() ?? [];
+        if(count($ticket) > 0) {
+            foreach($ticket as $key=>$r){
+                $image[$key] = [
+                    'uid' => $key,
+                    'url' => env('APP_URL'). Storage::url($r->path),
+                ];
+            }
+            return $image;
+        }
     }
 
     public function vendor()
