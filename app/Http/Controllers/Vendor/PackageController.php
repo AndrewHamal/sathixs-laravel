@@ -41,7 +41,7 @@ class PackageController extends Controller
                 ->where('tracking_id', $search)
                 ->paginate();
         }
-        return $package->orderBy('id', 'DESC')->paginate(10);
+        return $package->orderBy('updated_at', 'DESC')->paginate(10);
     }
 
     /**

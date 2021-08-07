@@ -95,4 +95,6 @@ Route::group(['prefix' => 'rider', 'middleware' => ['auth:sanctum']], function()
     Route::get('/chat/{id}', [ChatController::class, 'index']);
 
     Route::post('/chat', [ChatController::class, 'store']);
+
+    Route::get('seen-chat/{id}', [ChatController::class, 'seenChat']);
 });

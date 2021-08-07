@@ -17,4 +17,8 @@ Broadcast::channel('chat.{id}', function ($user) {
     return $user;
 });
 
+Broadcast::channel('ticket.{id}', function ($user) {
+    return $user;
+});
+
 

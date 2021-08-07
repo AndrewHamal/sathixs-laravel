@@ -18,16 +18,14 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return Package::get()->where('process_step', null)->first();
+     return view('welcome');
+//    return Package::get()->where('process_step', null)->first();
 });
 
+Broadcast::routes(['middleware' => ['auth:api']]);
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-
-
 
 
 
