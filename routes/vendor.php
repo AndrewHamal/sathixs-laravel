@@ -77,4 +77,9 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'vendor'], function(){
 
     Route::get('/ticket-chat/{id}', [TicketChatController::class, 'index']);
 
+    Route::get('count-vendor-inbox', [ChatController::class, 'countInbox']);
+
+    Route::get('seen-chat/{id}', [ChatController::class, 'seenChat']);
+
+
 });

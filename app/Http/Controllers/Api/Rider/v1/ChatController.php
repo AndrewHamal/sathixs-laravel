@@ -45,4 +45,16 @@ class ChatController extends Controller
             'message' => 'Message send Successfully',
         ], Response::HTTP_CREATED);
     }
+
+    public function seenChat($id)
+    {
+        $chatIds = RiderVendorChat::where('rider_id', null)
+        ->where('package_id', $id)->pluck('id');
+
+        foreach($chatIds as $chatId){
+            RiderVendorChat::where('id', $chatId)->update([
+                'status' => 0
+            ]);
+        }
+    }
 }
