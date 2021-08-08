@@ -62,7 +62,7 @@ class VendorController extends Controller
         $file = $request->file('file');
         $fileData = [];
 
-        if(@count($vendor->pan)){
+        if(@count($vendor->pan ?? [])){
             $fileData = $vendor->pan;
         }
 
@@ -95,7 +95,7 @@ class VendorController extends Controller
         $file = $request->file('file');
         $fileData = [];
 
-        if(@count($vendor->id_proof)){
+        if(@count($vendor->id_proof ?? [])){
             $fileData = $vendor->id_proof;
         }
 
@@ -127,7 +127,7 @@ class VendorController extends Controller
         $file = $request->file('file');
         $fileData = [];
 
-        if(@count($vendor->tax)){
+        if(@count($vendor->tax ?? [])){
             $fileData = $vendor->tax;
         }
 
