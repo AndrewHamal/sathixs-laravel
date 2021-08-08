@@ -22,7 +22,7 @@ class VehicleInsuranceController extends Controller
         $file = $request->file('file');
         $fileData = [];
 
-        if(@count($insurance->vehicle_insurance)){
+        if(@count($insurance->vehicle_insurance) ?? []){
             $fileData = $insurance->vehicle_insurance;
         }
 

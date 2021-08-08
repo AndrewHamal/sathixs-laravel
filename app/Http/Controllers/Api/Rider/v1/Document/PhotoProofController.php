@@ -23,7 +23,7 @@ class PhotoProofController extends Controller
         $file = $request->file('file');
         $fileData = [];
 
-        if(@count($license->driving_license)){
+        if(@count($license->driving_license) ?? []){
             $fileData = $license->photo_id_proof;
         }
 

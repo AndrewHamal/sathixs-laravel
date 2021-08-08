@@ -40,6 +40,7 @@ class Rider extends Authenticatable
                 $image[$key] = [
                     'uid' => $key,
                     'name' => env('APP_URL'). Storage::url($r),
+                    'thumbUrl' => env('APP_URL'). Storage::url($r),
                 ];
             }
             return $image;
@@ -55,6 +56,7 @@ class Rider extends Authenticatable
                 $image[$key] = [
                     'uid' => $key,
                     'name' => env('APP_URL'). Storage::url($r),
+                    'thumbUrl' => env('APP_URL'). Storage::url($r),
                 ];
             }
             return $image;
@@ -70,6 +72,7 @@ class Rider extends Authenticatable
                 $image[$key] = [
                     'uid' => $key,
                     'name' => env('APP_URL'). Storage::url($r),
+                    'thumbUrl' => env('APP_URL'). Storage::url($r),
                 ];
             }
             return $image;
