@@ -80,7 +80,8 @@ class ProfileController extends Controller
         $rider->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'email' => $request->email
+            'email' => $request->email,
+            'phone' => $request->phone
         ]);
 
         Rider_detail::where('rider_id', $rider->id)->update([
