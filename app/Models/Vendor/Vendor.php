@@ -64,6 +64,7 @@ class Vendor extends Authenticatable
                 $image[$key] = [
                     'uid' => $key,
                     'name' => env('APP_URL'). Storage::url($r),
+                    'thumbUrl' => env('APP_URL'). Storage::url($r),
                 ];
             }
             return $image;
@@ -79,6 +80,7 @@ class Vendor extends Authenticatable
                 $image[$key] = [
                     'uid' => $key,
                     'name' => env('APP_URL'). Storage::url($r),
+                    'thumbUrl' => env('APP_URL'). Storage::url($r),
                 ];
             }
             return $image;
@@ -94,6 +96,7 @@ class Vendor extends Authenticatable
                 $image[$key] = [
                     'uid' => $key,
                     'name' => env('APP_URL'). Storage::url($r),
+                    'thumbUrl' => env('APP_URL'). Storage::url($r),
                 ];
             }
             return $image;
