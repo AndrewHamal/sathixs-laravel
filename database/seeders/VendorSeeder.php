@@ -17,7 +17,7 @@ class VendorSeeder extends Seeder
     {
         $datas = [
             [
-                'id' => 1,
+                'id' => 5,
                 'first_name'=>'John',
                 'last_name'=>'Deo',
                 'email'=>'john@gmail.com',
